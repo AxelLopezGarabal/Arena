@@ -13,17 +13,16 @@ import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.lacar.ui.model.ControlBuilder
 
 object Widgets {
-    fun labeledTextBox(owner: Panel, labelText: String, propertyName: String) =
-        Panel(owner).asHorizontal() with {
-            label(it, labelText)
-            textBox(it, propertyName)
-        }
+    fun titleLabel(owner: Panel, text: String) =
+            label(owner, text).setFontSize(32)
 
-    fun labeledPasswordField(owner: Panel, labelText: String, propertyName: String) =
-        Panel(owner).asHorizontal() with {
-            label(it, labelText)
-            passwordField(it, propertyName)
-        }
+    fun button(owner: Panel, caption: String, onClickBlock: () -> Unit = {}) =
+            Button(owner)
+                    .setCaption(caption)
+                    .onClick(onClickBlock)
+
+    fun largeButton(owner: Panel, caption: String, onClickBlock: () -> Unit) =
+            button(owner, caption, onClickBlock) with { fontSize = 18 }
 
     fun label(owner: Panel, text: String) =
         Label(owner).setText(text)
@@ -39,12 +38,6 @@ object Widgets {
 
     fun passwordField(owner: Panel, propertyName: String) =
         PasswordField(owner) with { bindTo(propertyName) }
-
-
-    fun button(owner: Panel, caption: String, onClickBlock: () -> Unit = {}) =
-        Button(owner)
-            .setCaption(caption)
-            .onClick(onClickBlock)
 
     fun table(owner: Panel, itemType: Class<*>, propertyName: String) =
         Table<Any>(owner, itemType as Class<Any>) with {
@@ -63,4 +56,16 @@ object Widgets {
             textBox(it, propertyName).setWidth(textBoxWidth)
         }
     }
+
+    fun labeledTextBox(owner: Panel, labelText: String, propertyName: String) =
+            Panel(owner).asHorizontal() with {
+                label(it, labelText)
+                textBox(it, propertyName)
+            }
+
+    fun labeledPasswordField(owner: Panel, labelText: String, propertyName: String) =
+            Panel(owner).asHorizontal() with {
+                label(it, labelText)
+                passwordField(it, propertyName)
+            }
 }
