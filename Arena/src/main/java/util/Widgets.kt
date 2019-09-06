@@ -14,7 +14,10 @@ import org.uqbar.lacar.ui.model.ControlBuilder
 
 object Widgets {
     fun titleLabel(owner: Panel, text: String) =
-            label(owner, text).setFontSize(32)
+            label(owner, text) with {
+                fontSize = 32
+
+            }
 
     fun button(owner: Panel, caption: String, onClickBlock: () -> Unit = {}) =
             Button(owner)

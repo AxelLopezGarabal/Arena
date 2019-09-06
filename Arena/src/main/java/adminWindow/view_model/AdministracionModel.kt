@@ -2,14 +2,16 @@ package com.unqui_arena.administracion.view_model
 
 import org.uqbar.commons.model.annotations.Dependencies
 import org.uqbar.commons.model.annotations.Observable
-import wallet.Account
+import wallet.DigitalWallet
 
 @Observable
-class AdministracionModel(var accounts: MutableList<Account>) {
+class AdministracionModel(var wallet: DigitalWallet) {
 
-    var textoParaFiltroDeBusqueda = ""
+    var textoCampoDeBusqueda = ""
 
-    @Dependencies("accounts")
-    fun getUsers() = accounts.map(Account::user)
+    var selectedUser = getUsers().first()
+
+    @Dependencies("wallet")
+    fun getUsers() = wallet.users
 
 }
