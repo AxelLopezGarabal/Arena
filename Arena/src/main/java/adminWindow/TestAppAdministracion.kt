@@ -6,12 +6,14 @@ import org.uqbar.arena.Application
 import wallet.*
 
 fun testModel(): AdministracionModel {
-    val pepeAdmin = User("1", "Pepe", "Gomez", "pepegomez@gmail.com", "pass123", true)
-    val juansito  = User("2", "Juan", "Perez", "juanperez@gmail.com", "pass123", false)
+    val pepeAdmin = User("1", "Pepe", "Gomez", "bbb@gmail.com", "pass123", true)
+    val juansito  = User("2", "Juan", "Perez", "aaa@gmail.com", "pass123", false)
+    val alvaro    = User("3", "Alvaro", "Gomez", "ccc@hotmail.com", "pass123", false)
 
     val wallet = DigitalWallet()
     wallet.register(pepeAdmin)
     wallet.register(juansito)
+    wallet.register(alvaro)
 
     return AdministracionModel(wallet)
 }
@@ -21,6 +23,4 @@ class TestAppAdministracion : Application() {
         AdministracionWindow(this, testModel())
 }
 
-fun main() {
-    TestAppAdministracion().start()
-}
+fun main() = TestAppAdministracion().start()

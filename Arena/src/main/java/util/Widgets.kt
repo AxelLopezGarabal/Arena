@@ -1,9 +1,6 @@
 package com.unqui_arena
 
-import org.uqbar.arena.kotlin.extensions.asHorizontal
-import org.uqbar.arena.kotlin.extensions.bindItemsTo
-import org.uqbar.arena.kotlin.extensions.bindTo
-import org.uqbar.arena.kotlin.extensions.with
+import org.uqbar.arena.kotlin.extensions.*
 import org.uqbar.arena.widgets.*
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Panel
@@ -11,21 +8,19 @@ import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.lacar.ui.model.ControlBuilder
+import java.awt.Color
 
 object Widgets {
     fun titleLabel(owner: Panel, text: String) =
-            label(owner, text) with {
-                fontSize = 32
-
-            }
+        label(owner, text) with { fontSize = 32 }
 
     fun button(owner: Panel, caption: String, onClickBlock: () -> Unit = {}) =
-            Button(owner)
-                    .setCaption(caption)
-                    .onClick(onClickBlock)
+        Button(owner)
+            .setCaption(caption)
+            .onClick(onClickBlock)
 
     fun largeButton(owner: Panel, caption: String, onClickBlock: () -> Unit) =
-            button(owner, caption, onClickBlock) with { fontSize = 18 }
+        button(owner, caption, onClickBlock) with { fontSize = 18; alignCenter() }
 
     fun label(owner: Panel, text: String) =
         Label(owner).setText(text)
@@ -61,14 +56,14 @@ object Widgets {
     }
 
     fun labeledTextBox(owner: Panel, labelText: String, propertyName: String) =
-            Panel(owner).asHorizontal() with {
-                label(it, labelText)
-                textBox(it, propertyName)
-            }
+        Panel(owner).asHorizontal() with {
+            label(it, labelText)
+            textBox(it, propertyName)
+        }
 
     fun labeledPasswordField(owner: Panel, labelText: String, propertyName: String) =
-            Panel(owner).asHorizontal() with {
-                label(it, labelText)
-                passwordField(it, propertyName)
-            }
+        Panel(owner).asHorizontal() with {
+            label(it, labelText)
+            passwordField(it, propertyName)
+        }
 }

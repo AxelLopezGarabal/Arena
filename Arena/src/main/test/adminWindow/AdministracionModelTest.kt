@@ -1,6 +1,0 @@
-package adminWindow
-
-class AdministracionModelTest {
-
-
-}
