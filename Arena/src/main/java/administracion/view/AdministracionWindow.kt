@@ -106,9 +106,21 @@ class AdministracionWindow : SimpleWindow<AdministracionModel> {
     private fun createLoggedUserPanel(owner: Panel) {
         Panel(owner) with {
             asHorizontal()
-            Widgets.infoLabel(it, "Loggeado como:")
-            Widgets.infoBindedLabel(it, "loggedUserFullName")
+            createLoggedUserInfo(it)
+            createLogoutButton(it)
         }
+    }
+
+    private fun createLoggedUserInfo(owner: Panel) {
+        Widgets.infoLabel(owner, "Loggeado como:")
+        Widgets.infoBindedLabel(owner, "loggedUserFullName")
+    }
+
+    private fun createLogoutButton(owner: Panel) =
+        Widgets.button(owner, "Cerrar sesion") { logout() }
+
+    private fun logout() {
+        close()
     }
 
 }

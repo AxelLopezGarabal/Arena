@@ -28,11 +28,11 @@ class RemoveUserWindow : Dialog<UserModel> {
     private fun createMessage(owner: Panel) {
         val myModel = modelObject
         Panel(owner) with {
-            Widgets.label(owner, "¿Esta seguro de que quiere dar de baja a ")
-            Widgets.label(owner, "${myModel.fullName}").setForeground(Widgets.warningForegroundColor)
-            Widgets.label(owner, "?")
+            asHorizontal()
+            Widgets.label(it, "¿Esta seguro de que quiere dar de baja a ")
+            Widgets.label(it, "${myModel.fullName}").setForeground(Widgets.warningForegroundColor)
+            Widgets.label(it, "?")
         }
-
     }
 
     private fun createButtons(owner: Panel) {

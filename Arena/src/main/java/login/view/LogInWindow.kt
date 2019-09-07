@@ -50,7 +50,9 @@ class LogInWindow : Window<LoginModel> {
 	
     private fun createButtonsPanel(owner: Panel) {
         Panel(owner) with {
-			Widgets.largeButton(owner, "Login") { openAdministracionWindow() }
+			Widgets.largeButton(owner, "Login") {
+				openAdministracionWindow()
+			}.setAsDefault()
 		}
     }
 
