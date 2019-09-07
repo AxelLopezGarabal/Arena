@@ -21,6 +21,7 @@ object Widgets {
     val warningBackgroundColor = Color(0x690805)
 
     val infoForegroundColor    = Color(0x26A833)
+    val infoBackgroundColor    = Color(0x17641F)
 
     fun titleLabel(owner: Panel, text: String) =
         label(owner, text) with {
@@ -120,8 +121,10 @@ object Widgets {
 
     fun largeWarningButton(owner: Panel, caption: String, onClickBlock: () -> Unit) =
         largeButton(owner, caption, onClickBlock) with {
-            foreground = warningForegroundColor
-            background = warningBackgroundColor
+            //foreground = warningForegroundColor
+            //background = warningBackgroundColor
+            foreground = warningBackgroundColor
+            background = warningForegroundColor
         }
 
 }

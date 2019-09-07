@@ -14,6 +14,6 @@ class LoginModel(val wallet: DigitalWallet) {
 
     var errorMessage: String? = ""
 
-    fun loggedUser() =wallet.login(email, password)
+    fun loggedUser() = wallet.login(email, password)
 
 }

@@ -96,7 +96,7 @@ class AdministracionWindow : SimpleWindow<AdministracionModel> {
 
     private fun openModifySelectedUserWindow() {
         val dialog = ModifyUserWindow(this, ModifyUserModel(modelObject.selectedUser.user, modelObject.wallet))
-        dialog.onAccept {  }
+        dialog.onAccept { modelObject.reloadAllUsers() }
         dialog.open()
     }
 

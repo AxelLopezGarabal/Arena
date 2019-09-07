@@ -28,7 +28,7 @@ class AdministracionModel(var wallet: DigitalWallet, val loggedUser: User) {
     @Dependencies("textoCampoDeBusqueda", "selectedUserComparator", "allUsers")
     fun getShowedUsers() = initAllUsers()
 
-    private fun initAllUsers() =
+    fun initAllUsers() =
         wallet.users
             .sortedWith(selectedUserComparator)
             .filter { FiltroCompleto(textoCampoDeBusqueda).test(it) }
@@ -41,6 +41,10 @@ class AdministracionModel(var wallet: DigitalWallet, val loggedUser: User) {
 
     fun register(newUser: User) {
         wallet.register(newUser)
+        allUsers = initAllUsers()
+    }
+
+    fun reloadAllUsers() {
         allUsers = initAllUsers()
     }
 }

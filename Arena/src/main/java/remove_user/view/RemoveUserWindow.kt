@@ -38,7 +38,7 @@ class RemoveUserWindow : Dialog<UserModel> {
     private fun createButtons(owner: Panel) {
         owner with {
             Widgets.button(it, "Si") { accept() }
-            Widgets.button(it, "No") { cancel() }
+            Widgets.button(it, "No") { cancel() } with { setAsDefault() }
         }
     }
 }

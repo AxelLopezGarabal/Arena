@@ -60,7 +60,7 @@ class ModifyUserWindow : Dialog<ModifyUserModel> {
     private fun createButtonsPanel(owner: Panel) {
         Panel(owner) with {
             asHorizontal()
-            Widgets.largeButton(it, "Aceptar")  { accept() }
+            Widgets.largeButton(it, "Aceptar")  { modifyUser(); accept() }//{ accept() }
             Widgets.largeButton(it, "Cancelar") { cancel() }
         }
     }
@@ -68,6 +68,11 @@ class ModifyUserWindow : Dialog<ModifyUserModel> {
     private fun createField(owner: Panel, fieldName: String, propertyName: String) {
         Widgets.label(owner, fieldName)
         Widgets.bindedLabel(owner, propertyName)
+    }
+
+
+    private fun modifyUser() {
+        modelObject.modifyUser()
     }
 
 }
