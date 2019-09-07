@@ -4,17 +4,12 @@ import adminWindow.view_model.UserModel
 import com.unqui_arena.Widgets
 import com.unqui_arena.administracion.view_model.AdministracionModel
 import org.uqbar.arena.kotlin.extensions.*
-import org.uqbar.arena.widgets.Label
-import org.uqbar.arena.widgets.List
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.RadioSelector
-import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.windows.Window
 import org.uqbar.arena.windows.WindowOwner
 import removeUserWindow.view.RemoveUserWindow
-import removeUserWindow.view_model.RemoveUserModel
-import wallet.*
 
 class AdministracionWindow : Window<AdministracionModel> {
     constructor(owner: WindowOwner, model: AdministracionModel) : super(owner, model)
@@ -55,7 +50,7 @@ class AdministracionWindow : Window<AdministracionModel> {
 
     private fun createUsersTable(owner: Panel) {
         Table<UserModel>(owner, UserModel::class.java). with {
-            bindItemsTo("users")
+            bindItemsTo("showedUsers")
             bindTo("selectedUser")
             height = 500
             Widgets.column(it, "Nombre", "firstName")
@@ -68,20 +63,20 @@ class AdministracionWindow : Window<AdministracionModel> {
     private fun createButtonsPanel(owner: Panel) {
         Panel(owner) with {
             asHorizontal()
-            Widgets.largeButton(it, "Ver")       { viewUser() }
+            Widgets.largeButton(it, "Ver")       { viewSelectedUser() }
             Widgets.largeButton(it, "Modificar") { modifyUser() }
             Widgets.largeButton(it, "Agregar")   { addNewUser() }
-            Widgets.largeButton(it, "Eliminar")  { deleteUser() }
+            Widgets.largeButton(it, "Eliminar")  { deleteSelectedUser() }
         }
     }
 
-    private fun viewUser() {}
+    private fun viewSelectedUser() {}
     private fun modifyUser() { }
     private fun addNewUser() { }
 
-    private fun deleteUser() {
+    private fun deleteSelectedUser() {
         val dialog = RemoveUserWindow(this, modelObject.selectedUser)
-        dialog.onAccept { modelObject.deleteUser() }
+        dialog.onAccept { modelObject.deleteSelectedUser() }
         dialog.open()
     }
 

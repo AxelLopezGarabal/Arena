@@ -15,23 +15,25 @@ class AdministracionModel(var wallet: DigitalWallet) {
     val criteriosDeOrden = CriteriosDeOrdenDeUsuarios.todos
     var criterioDeOrdenSeleccionado = criteriosDeOrden.first()
 
-    var selectedUser = getUsers().first()
+    var selectedUser = getShowedUsers().first()
 
-    @Dependencies("textoCampoDeBusqueda", "criterioDeOrdenSeleccionado")
-    fun getUsers() =
+    @Dependencies("textoCampoDeBusqueda", "criterioDeOrdenSeleccionado", "allUsers")
+    fun getShowedUsers() =
         wallet.users
             .sortedBy { criterioDeOrdenSeleccionado.second(it) }
             .filter { FiltroCompleto(textoCampoDeBusqueda).test(it) }
             .map { UserModel(it) }
 
-    fun deleteUser() {
-        wallet.deleteUser(selectedUser.model)
+    var allUsers = initAllUsers()
 
-        // Hay que ver que onda con las @Dependencies para
-        // sacar esta chanchada de aca abajo
-        val x = criterioDeOrdenSeleccionado
-        criterioDeOrdenSeleccionado = criteriosDeOrden.first()
-        criterioDeOrdenSeleccionado = criteriosDeOrden.last()
-        criterioDeOrdenSeleccionado = x
+    private fun initAllUsers() =
+        wallet.users
+            .sortedBy { criterioDeOrdenSeleccionado.second(it) }
+            .filter { FiltroCompleto(textoCampoDeBusqueda).test(it) }
+            .map { UserModel(it) }
+
+    fun deleteSelectedUser() {
+        wallet.deleteUser(selectedUser.model)
+        allUsers = initAllUsers()
     }
 }
