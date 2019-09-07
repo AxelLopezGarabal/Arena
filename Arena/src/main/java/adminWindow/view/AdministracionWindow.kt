@@ -27,28 +27,33 @@ class AdministracionWindow : Window<AdministracionModel> {
         setMinWidth(500)
     }
 
-    private fun createSearchPanel(owner: Panel) {
+    private fun createTitle(owner: Panel) =
+        Widgets.titleLabel(owner, "Cuentas")
+
+    private fun createSearchPanel(owner: Panel) =
+        Panel(owner) with {
+            createSearchInput(owner)
+            createFilterResults(owner)
+        }
+
+    private fun createSearchInput(owner: Panel) =
         Panel(owner) with {
             asHorizontal()
             Widgets.label(it, "Buscar:")
             Widgets.textBox(it, "textoCampoDeBusqueda").setWidth(500)
         }
 
+    private fun createFilterResults(owner: Panel) =
         Panel(owner) with {
             asHorizontal()
             Widgets.label(it, "Ordenar por:")
             RadioSelector<String>(owner) with {
-                bindItemsTo("criteriosDeOrden").adaptWith(Pair::class.java, "first")
-                bindSelectedTo("criterioDeOrdenSeleccionado")
+                bindItemsTo("userComparator")
+                bindSelectedTo("selectedUserComparator")
             }
         }
-    }
 
-    private fun createTitle(owner: Panel) {
-        Widgets.titleLabel(owner, "Cuentas")
-    }
-
-    private fun createUsersTable(owner: Panel) {
+    private fun createUsersTable(owner: Panel) =
         Table<UserModel>(owner, UserModel::class.java). with {
             bindItemsTo("showedUsers")
             bindTo("selectedUser")
@@ -58,20 +63,18 @@ class AdministracionWindow : Window<AdministracionModel> {
             Widgets.column(it, "E-mail", "email")
             Widgets.column(it, "Es administrador", "esAdmin")
         }
-    }
 
-    private fun createButtonsPanel(owner: Panel) {
+    private fun createButtonsPanel(owner: Panel) =
         Panel(owner) with {
             asHorizontal()
             Widgets.largeButton(it, "Ver")       { viewSelectedUser() }
-            Widgets.largeButton(it, "Modificar") { modifyUser() }
+            Widgets.largeButton(it, "Modificar") { modifySelectedUser() }
             Widgets.largeButton(it, "Agregar")   { addNewUser() }
             Widgets.largeButton(it, "Eliminar")  { deleteSelectedUser() }
         }
-    }
 
     private fun viewSelectedUser() {}
-    private fun modifyUser() { }
+    private fun modifySelectedUser() { }
     private fun addNewUser() { }
 
     private fun deleteSelectedUser() {

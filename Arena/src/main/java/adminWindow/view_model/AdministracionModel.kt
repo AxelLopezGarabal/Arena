@@ -1,7 +1,9 @@
 package com.unqui_arena.administracion.view_model
 
 import adminWindow.view_model.UserModel
-import adminWindow.view_model.criterios_de_orden_de_usuario.CriteriosDeOrdenDeUsuarios
+import adminWindow.view_model.user_comparators.ByEmailComparator
+import adminWindow.view_model.user_comparators.ByFirstNameComparator
+import adminWindow.view_model.user_comparators.ByLastNameComparator
 import adminWindow.view_model.filtros_de_usuarios.FiltroCompleto
 import org.uqbar.commons.model.annotations.Dependencies
 import org.uqbar.commons.model.annotations.Observable
@@ -12,15 +14,15 @@ class AdministracionModel(var wallet: DigitalWallet) {
 
     var textoCampoDeBusqueda = ""
 
-    val criteriosDeOrden = CriteriosDeOrdenDeUsuarios.todos
-    var criterioDeOrdenSeleccionado = criteriosDeOrden.first()
+    val userComparator = listOf(ByFirstNameComparator(), ByLastNameComparator(), ByEmailComparator())
+    var selectedUserComparator = userComparator.first()
 
     var selectedUser = getShowedUsers().first()
 
-    @Dependencies("textoCampoDeBusqueda", "criterioDeOrdenSeleccionado", "allUsers")
+    @Dependencies("textoCampoDeBusqueda", "selectedUserComparator", "allUsers")
     fun getShowedUsers() =
         wallet.users
-            .sortedBy { criterioDeOrdenSeleccionado.second(it) }
+            .sortedWith(selectedUserComparator)
             .filter { FiltroCompleto(textoCampoDeBusqueda).test(it) }
             .map { UserModel(it) }
 
@@ -28,7 +30,7 @@ class AdministracionModel(var wallet: DigitalWallet) {
 
     private fun initAllUsers() =
         wallet.users
-            .sortedBy { criterioDeOrdenSeleccionado.second(it) }
+            .sortedWith(selectedUserComparator)
             .filter { FiltroCompleto(textoCampoDeBusqueda).test(it) }
             .map { UserModel(it) }
 
