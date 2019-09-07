@@ -1,5 +1,6 @@
 package adminWindow.view_model.filtros_de_usuarios
 
+import adminWindow.view_model.UserModel
 import wallet.User
 
 class FiltroCompleto(searchText: String) {

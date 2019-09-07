@@ -1,14 +1,19 @@
 package com.unqui_arena.administracion.view
 
+import adminWindow.view_model.UserModel
 import com.unqui_arena.Widgets
 import com.unqui_arena.administracion.view_model.AdministracionModel
 import org.uqbar.arena.kotlin.extensions.*
+import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.List
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.RadioSelector
+import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.windows.Window
 import org.uqbar.arena.windows.WindowOwner
+import removeUserWindow.view.RemoveUserWindow
+import removeUserWindow.view_model.RemoveUserModel
 import wallet.*
 
 class AdministracionWindow : Window<AdministracionModel> {
@@ -49,29 +54,35 @@ class AdministracionWindow : Window<AdministracionModel> {
     }
 
     private fun createUsersTable(owner: Panel) {
-        List<User>(owner) with {
-            bindItemsTo("wantedUsers").adaptWith(User::class.java, "fullName")
-            bindSelectedTo("selectedUser")
+        Table<UserModel>(owner, UserModel::class.java). with {
+            bindItemsTo("users")
+            bindTo("selectedUser")
+            height = 500
+            Widgets.column(it, "Nombre", "firstName")
+            Widgets.column(it, "Apellido", "lastName")
+            Widgets.column(it, "E-mail", "email")
+            Widgets.column(it, "Es administrador", "esAdmin")
         }
-
-        //Table<User>(owner, User::class.java)
     }
 
     private fun createButtonsPanel(owner: Panel) {
         Panel(owner) with {
             asHorizontal()
-            Widgets.largeButton(it, "Ver")       { verDatosDeUsuarioSeleccionado() }
-            Widgets.largeButton(it, "Agregar")   { modificar() }
-            Widgets.largeButton(it, "Modificar") { agregar() }
-            Widgets.largeButton(it, "Eliminar")  { eliminar() }
+            Widgets.largeButton(it, "Ver")       { viewUser() }
+            Widgets.largeButton(it, "Modificar") { modifyUser() }
+            Widgets.largeButton(it, "Agregar")   { addNewUser() }
+            Widgets.largeButton(it, "Eliminar")  { deleteUser() }
         }
     }
 
-    private fun verDatosDeUsuarioSeleccionado() {
+    private fun viewUser() {}
+    private fun modifyUser() { }
+    private fun addNewUser() { }
 
+    private fun deleteUser() {
+        val dialog = RemoveUserWindow(this, modelObject.selectedUser)
+        dialog.onAccept { modelObject.deleteUser() }
+        dialog.open()
     }
-    private fun agregar()   { }
-    private fun modificar() { }
-    private fun eliminar()  { }
 
 }

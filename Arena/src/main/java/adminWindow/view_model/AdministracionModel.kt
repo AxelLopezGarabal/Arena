@@ -1,12 +1,11 @@
 package com.unqui_arena.administracion.view_model
 
+import adminWindow.view_model.UserModel
 import adminWindow.view_model.criterios_de_orden_de_usuario.CriteriosDeOrdenDeUsuarios
-import adminWindow.view_model.filtros_de_usuarios.FiltroBusquedaDeUsuario
 import adminWindow.view_model.filtros_de_usuarios.FiltroCompleto
 import org.uqbar.commons.model.annotations.Dependencies
 import org.uqbar.commons.model.annotations.Observable
 import wallet.DigitalWallet
-import wallet.User
 
 @Observable
 class AdministracionModel(var wallet: DigitalWallet) {
@@ -18,19 +17,21 @@ class AdministracionModel(var wallet: DigitalWallet) {
 
     var selectedUser = getUsers().first()
 
-    @Dependencies("wallet")
-    fun getUsers() = wallet.users
+    @Dependencies("textoCampoDeBusqueda", "criterioDeOrdenSeleccionado")
+    fun getUsers() =
+        wallet.users
+            .sortedBy { criterioDeOrdenSeleccionado.second(it) }
+            .filter { FiltroCompleto(textoCampoDeBusqueda).test(it) }
+            .map { UserModel(it) }
 
-    @Dependencies("wallet", "textoCampoDeBusqueda", "criterioDeOrdenSeleccionado")
-    fun getWantedUsers() =
-        ordenados(filtrados(getUsers()))
+    fun deleteUser() {
+        wallet.deleteUser(selectedUser.model)
 
-    private fun ordenados(users: List<User>) =
-        users.sortedBy { criterioDeOrdenSeleccionado.second(it) }
-
-    private fun filtrados(users: List<User>) =
-        users.filter { FiltroCompleto(textoCampoDeBusqueda).test(it) }
-
-    private fun filtroParaBusqueda() =
-        FiltroCompleto(textoCampoDeBusqueda)
+        // Hay que ver que onda con las @Dependencies para
+        // sacar esta chanchada de aca abajo
+        val x = criterioDeOrdenSeleccionado
+        criterioDeOrdenSeleccionado = criteriosDeOrden.first()
+        criterioDeOrdenSeleccionado = criteriosDeOrden.last()
+        criterioDeOrdenSeleccionado = x
+    }
 }
