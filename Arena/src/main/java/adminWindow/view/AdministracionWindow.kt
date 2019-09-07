@@ -7,11 +7,16 @@ import org.uqbar.arena.kotlin.extensions.*
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.RadioSelector
 import org.uqbar.arena.widgets.tables.Table
+import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.Window
 import org.uqbar.arena.windows.WindowOwner
 import removeUserWindow.view.RemoveUserWindow
 
-class AdministracionWindow : Window<AdministracionModel> {
+class AdministracionWindow : SimpleWindow<AdministracionModel> {
+    override fun addActions(p0: Panel?) {}
+
+    override fun createFormPanel(p0: Panel?) {}
+
     constructor(owner: WindowOwner, model: AdministracionModel) : super(owner, model)
 
     override fun createContents(mainPanel: Panel) {

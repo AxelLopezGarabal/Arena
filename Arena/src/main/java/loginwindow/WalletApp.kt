@@ -1,8 +1,10 @@
 package loginwindow
 
 
+import loginwindow.view_model.LoginModel
 import org.uqbar.arena.Application
 import org.uqbar.commons.model.annotations.Observable
+import wallet.DigitalWallet
 
 val usuariosInicial = mutableListOf(
     Usuario("nombre1", "apellido1", "email1@gmail.com"),
@@ -25,11 +27,12 @@ val BeneficiosIniciales = mutableListOf(
 
 val w = Wallet(42, 3686, 470, usuariosInicial, BeneficiosIniciales, "", items);
 
-class WalletApp : Application() {
+
+class WalletApp(val wallet: DigitalWallet) : Application() {
     override fun createMainWindow() =
-        LogInWindow(this, w)
+        LogInWindow(this, LoginModel(wallet))
 }
 
 fun main(args: Array<String>) {
-    WalletApp().start()
+    WalletApp(TestWallets.testWalletA()).start()
 }

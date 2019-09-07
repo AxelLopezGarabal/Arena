@@ -1,36 +1,35 @@
 package loginwindow
 
-import org.uqbar.arena.kotlin.extensions.asColumns
+import com.unqui_arena.Widgets
+import com.unqui_arena.administracion.view.AdministracionWindow
+import com.unqui_arena.administracion.view_model.AdministracionModel
+import loginwindow.view_model.LoginModel
 import org.uqbar.arena.kotlin.extensions.asHorizontal
 import org.uqbar.arena.kotlin.extensions.asVertical
-import org.uqbar.arena.kotlin.extensions.bindTo
 import org.uqbar.arena.kotlin.extensions.with
 import org.uqbar.arena.widgets.*
 import org.uqbar.arena.windows.Window
 import org.uqbar.arena.windows.WindowOwner
-import newUserWindow.NewUserWindow
 
-class LogInWindow : Window<Wallet> {
-    constructor(owner: WindowOwner, wallet: Wallet) : super(owner, wallet)
-    val thisWindow = owner;
-	
+class LogInWindow : Window<LoginModel> {
+    constructor(owner: WindowOwner, model: LoginModel) : super(owner, model)
+
+	val thisWindow = this
+
     override fun createContents(mainPanel: Panel) {
 		setUpWindow(mainPanel)
+		welcomeMessage(mainPanel)
         createInputPanel(mainPanel)
         createButtonsPanel(mainPanel)
     }
 
 	private fun setUpWindow(owner: Panel) {
         setTitle("Digital Wallet - UI")
-		welcomeMessage(owner);
         setMinWidth(300)
     }
 	
 	private fun welcomeMessage(owner: Panel){
-		Label(owner) with{
-			setText("Welcome")
-			setFontSize(18);
-		}
+		Widgets.titleLabel(owner, "Welcome")
 	}
 	
     private fun createInputPanel(owner: Panel) {
@@ -38,8 +37,6 @@ class LogInWindow : Window<Wallet> {
             asVertical();
 			emailField(owner);
 			passwordField(owner);
-            //Widgets.labeledTextBox(owner, "Correo electronico:", )
-            //Widgets.labeledPasswordField(owner, "email", "password")
         }
     }
 
@@ -63,10 +60,15 @@ class LogInWindow : Window<Wallet> {
         Panel(owner) with {
         	Button(owner)with {
 				setFontSize(14);
-        		setCaption(" Log In");	
-				onClick({ close(); NewUserWindow(thisWindow, w).open(); })
+        		setCaption(" Log In");
+				onClick { openAdministracionWindow() }
         	}
 		}
     }
+
+	private fun openAdministracionWindow() {
+		close()
+		AdministracionWindow(thisWindow, AdministracionModel(modelObject.wallet)).open()
+	}
 }
 		
