@@ -84,16 +84,15 @@ object Widgets {
             width = largeInputFieldSize
         }
 
-    fun mediumPasswordField(owner: Panel, bindedProperty: String) {
+    fun mediumPasswordField(owner: Panel, bindedProperty: String) =
         passwordField(owner, bindedProperty) with {
             fontSize = mediumFontSize
             width = inputFieldPreferedSize
         }
-    }
 
-    fun checkBoxField(owner: Panel, labelText: String): CheckBox {
+    fun checkBoxField(owner: Panel, labelText: String, bindedProperty: String): CheckBox {
         label(owner, labelText)
-        return CheckBox(owner)
+        return CheckBox(owner) with { bindTo(bindedProperty) }
     }
 
 }

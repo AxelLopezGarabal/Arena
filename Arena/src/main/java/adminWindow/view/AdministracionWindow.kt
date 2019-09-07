@@ -3,14 +3,13 @@ package com.unqui_arena.administracion.view
 import adminWindow.view_model.UserModel
 import com.unqui_arena.Widgets
 import com.unqui_arena.administracion.view_model.AdministracionModel
-import newUserWindow.view.NewUserWindow
-import newUserWindow.view_model.NewUserModel
+import newUserWindow.view.RegisterNewUserWindow
+import newUserWindow.view_model.RegisterNewUserModel
 import org.uqbar.arena.kotlin.extensions.*
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.RadioSelector
 import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.windows.SimpleWindow
-import org.uqbar.arena.windows.Window
 import org.uqbar.arena.windows.WindowOwner
 import removeUserWindow.view.RemoveUserWindow
 
@@ -74,23 +73,23 @@ class AdministracionWindow : SimpleWindow<AdministracionModel> {
     private fun createButtonsPanel(owner: Panel) =
         Panel(owner) with {
             asHorizontal()
-            Widgets.largeButton(it, "Ver")       { viewSelectedUser() }
-            Widgets.largeButton(it, "Modificar") { modifySelectedUser() }
-            Widgets.largeButton(it, "Agregar")   { addNewUser() }
-            Widgets.largeButton(it, "Eliminar")  { deleteSelectedUser() }
+            Widgets.largeButton(it, "Ver")       { }
+            Widgets.largeButton(it, "Modificar") { }
+            Widgets.largeButton(it, "Agregar")   { openRegisterNewUserWindow() }
+            Widgets.largeButton(it, "Eliminar")  { openRemoveUserWindow() }
         }
 
-    private fun viewSelectedUser() {}
-    private fun modifySelectedUser() { }
-    private fun addNewUser() {
-        val dialog = NewUserWindow(this, NewUserModel())
+    private fun openRegisterNewUserWindow() {
+        val dialog = RegisterNewUserWindow(this, RegisterNewUserModel())
+        dialog.onAccept { modelObject.register(dialog.createdUser()) }
         dialog.open()
     }
 
-    private fun deleteSelectedUser() {
+    private fun openRemoveUserWindow() {
         val dialog = RemoveUserWindow(this, modelObject.selectedUser)
         dialog.onAccept { modelObject.deleteSelectedUser() }
         dialog.open()
     }
+
 
 }

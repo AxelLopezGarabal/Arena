@@ -5,12 +5,12 @@ import org.uqbar.arena.kotlin.extensions.*
 import org.uqbar.arena.kotlin.extensions.with
 import org.uqbar.arena.widgets.*
 import org.uqbar.arena.windows.WindowOwner
-import newUserWindow.view_model.NewUserModel
+import newUserWindow.view_model.RegisterNewUserModel
 import org.uqbar.arena.windows.Dialog
 
-class NewUserWindow : Dialog<NewUserModel> {
+class RegisterNewUserWindow : Dialog<RegisterNewUserModel> {
 
-	constructor(owner: WindowOwner, model: NewUserModel) : super(owner, model)
+	constructor(owner: WindowOwner, model: RegisterNewUserModel) : super(owner, model)
 
 	override fun createFormPanel(mainPanel: Panel) {
 		setUpWindow(mainPanel)
@@ -69,7 +69,7 @@ class NewUserWindow : Dialog<NewUserModel> {
 		Widgets.labeledPasswordField(owner, "Repita su password:", "passwordAgain")
 
 	private fun isAdminField(owner: Panel) =
-		Widgets.checkBoxField(owner, "Es administrador:")
+		Widgets.checkBoxField(owner, "Es administrador:", "esAdmin")
 
 	private fun blankSpace(owner: Panel) =
 		Widgets.label(owner, "")
@@ -86,4 +86,6 @@ class NewUserWindow : Dialog<NewUserModel> {
 	
 	private fun cancelBotton(owner: Panel) =
 		Widgets.button(owner, "Cancelar") { cancel() }
+
+	fun createdUser() = modelObject.user
 }
