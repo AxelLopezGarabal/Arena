@@ -3,6 +3,8 @@ package com.unqui_arena.administracion.view
 import adminWindow.view_model.UserModel
 import com.unqui_arena.Widgets
 import com.unqui_arena.administracion.view_model.AdministracionModel
+import newUserWindow.view.NewUserWindow
+import newUserWindow.view_model.NewUserModel
 import org.uqbar.arena.kotlin.extensions.*
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.RadioSelector
@@ -80,7 +82,10 @@ class AdministracionWindow : SimpleWindow<AdministracionModel> {
 
     private fun viewSelectedUser() {}
     private fun modifySelectedUser() { }
-    private fun addNewUser() { }
+    private fun addNewUser() {
+        val dialog = NewUserWindow(this, NewUserModel())
+        dialog.open()
+    }
 
     private fun deleteSelectedUser() {
         val dialog = RemoveUserWindow(this, modelObject.selectedUser)

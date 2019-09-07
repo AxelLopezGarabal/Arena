@@ -13,6 +13,7 @@ import java.awt.Color
 object Widgets {
     val mediumFontSize = 14
     val inputFieldPreferedSize = 150
+    val largeInputFieldSize = 200
 
     fun titleLabel(owner: Panel, text: String) =
         label(owner, text) with { fontSize = 32 }
@@ -58,17 +59,15 @@ object Widgets {
         }
     }
 
-    fun labeledTextBox(owner: Panel, labelText: String, propertyName: String) =
-        Panel(owner).asHorizontal() with {
-            label(it, labelText)
-            textBox(it, propertyName)
-        }
+    fun labeledTextBox(owner: Panel, labelText: String, propertyName: String): TextBox {
+        label(owner, labelText)
+        return textBox(owner, propertyName)
+    }
 
-    fun labeledPasswordField(owner: Panel, labelText: String, propertyName: String) =
-        Panel(owner).asHorizontal() with {
-            label(it, labelText)
-            passwordField(it, propertyName)
-        }
+    fun labeledPasswordField(owner: Panel, labelText: String, propertyName: String): PasswordField {
+        label(owner, labelText)
+        return passwordField(owner, propertyName)
+    }
 
     fun mediumLabel(owner: Panel, text: String) =
         label(owner, text) with { fontSize = mediumFontSize }
@@ -79,11 +78,22 @@ object Widgets {
             width = inputFieldPreferedSize
         }
 
+    fun largeTextBox(owner: Panel, bindedProperty: String) =
+        textBox(owner, bindedProperty) with {
+            fontSize = mediumFontSize
+            width = largeInputFieldSize
+        }
+
     fun mediumPasswordField(owner: Panel, bindedProperty: String) {
         passwordField(owner, bindedProperty) with {
             fontSize = mediumFontSize
             width = inputFieldPreferedSize
         }
+    }
+
+    fun checkBoxField(owner: Panel, labelText: String): CheckBox {
+        label(owner, labelText)
+        return CheckBox(owner)
     }
 
 }
