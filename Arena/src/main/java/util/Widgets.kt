@@ -11,6 +11,8 @@ import org.uqbar.lacar.ui.model.ControlBuilder
 import java.awt.Color
 
 object Widgets {
+    val mediumFontSize = 14
+
     fun titleLabel(owner: Panel, text: String) =
         label(owner, text) with { fontSize = 32 }
 
@@ -66,4 +68,15 @@ object Widgets {
             label(it, labelText)
             passwordField(it, propertyName)
         }
+
+    fun mediumLabel(owner: Panel, text: String) =
+        label(owner, text).setFontSize(mediumFontSize)
+
+    fun mediumTextBox(owner: Panel, bindedProperty: String) =
+        textBox(owner, bindedProperty).setFontSize(mediumFontSize)
+
+    fun mediumPasswordField(owner: Panel, bindedProperty: String) {
+        passwordField(owner, bindedProperty).setFontSize(mediumFontSize)
+    }
+
 }
