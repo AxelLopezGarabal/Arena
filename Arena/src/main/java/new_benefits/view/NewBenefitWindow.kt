@@ -5,10 +5,10 @@ import org.uqbar.arena.kotlin.extensions.with
 import org.uqbar.arena.widgets.*
 import org.uqbar.arena.windows.Window
 import org.uqbar.arena.windows.WindowOwner
-import Wallet
+import wallet.DigitalWallet
 
-class NewUserWindow : Window<Wallet> {
-    constructor(owner: WindowOwner, wallet: Wallet) : super(owner, wallet)
+class NewUserWindow : Window<DigitalWallet> {
+    constructor(owner: WindowOwner, wallet: DigitalWallet) : super(owner, wallet)
     val thisWindow = owner;
 	
 	override fun createContents(mainPanel: Panel) {
@@ -25,7 +25,7 @@ class NewUserWindow : Window<Wallet> {
 	private fun registerMessage(owner: Panel){
 		Label(owner) with{
 			setText("Create a new benefit")
-			setFontSize(18);
+			setFontSize(18)
 		}
 	}
 	

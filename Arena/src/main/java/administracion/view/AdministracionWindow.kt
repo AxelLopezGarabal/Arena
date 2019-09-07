@@ -12,6 +12,8 @@ import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
 import remove_user.view.RemoveUserWindow
+import modify_user.view.ModifyUserWindow
+import modify_user.view_model.ModifyUserModel
 
 class AdministracionWindow : SimpleWindow<AdministracionModel> {
     override fun addActions(p0: Panel?) {}
@@ -76,8 +78,8 @@ class AdministracionWindow : SimpleWindow<AdministracionModel> {
             asHorizontal()
             Widgets.largeButton(it, "Dar de alta nuevo usuario") { openRegisterNewUserWindow() }
             Widgets.largeButton(it, "Ver") { }
-            Widgets.largeButton(it, "Modificar") { }
-            Widgets.largeWarningButton(it, "Eliminar") { openRemoveUserWindow() }
+            Widgets.largeButton(it, "Modificar") { openModifySelectedUserWindow() }
+            Widgets.largeWarningButton(it, "Eliminar") { openRemoveSelectedUserWindow() }
         }
 
     private fun openRegisterNewUserWindow() {
@@ -86,7 +88,13 @@ class AdministracionWindow : SimpleWindow<AdministracionModel> {
         dialog.open()
     }
 
-    private fun openRemoveUserWindow() {
+    private fun openModifySelectedUserWindow() {
+        val dialog = ModifyUserWindow(this, ModifyUserModel(modelObject.selectedUser.user, modelObject.wallet))
+        dialog.onAccept {  }
+        dialog.open()
+    }
+
+    private fun openRemoveSelectedUserWindow() {
         val dialog = RemoveUserWindow(this, modelObject.selectedUser)
         dialog.onAccept { modelObject.deleteSelectedUser() }
         dialog.open()

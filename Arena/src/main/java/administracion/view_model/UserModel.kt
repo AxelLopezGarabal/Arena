@@ -12,6 +12,8 @@ class UserModel(val user: User) {
     var email     = user.email
     var esAdmin   = if (user.isAdmin) "si" else "no"
 
+    var isAdmin   = user.isAdmin
+
     var fullName = user.fullName()
 
     override fun toString() = fullName
