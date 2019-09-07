@@ -12,6 +12,7 @@ import java.awt.Color
 
 object Widgets {
     val mediumFontSize = 14
+    val inputFieldPreferedSize = 150
 
     fun titleLabel(owner: Panel, text: String) =
         label(owner, text) with { fontSize = 32 }
@@ -70,13 +71,19 @@ object Widgets {
         }
 
     fun mediumLabel(owner: Panel, text: String) =
-        label(owner, text).setFontSize(mediumFontSize)
+        label(owner, text) with { fontSize = mediumFontSize }
 
     fun mediumTextBox(owner: Panel, bindedProperty: String) =
-        textBox(owner, bindedProperty).setFontSize(mediumFontSize)
+        textBox(owner, bindedProperty) with {
+            fontSize = mediumFontSize
+            width = inputFieldPreferedSize
+        }
 
     fun mediumPasswordField(owner: Panel, bindedProperty: String) {
-        passwordField(owner, bindedProperty).setFontSize(mediumFontSize)
+        passwordField(owner, bindedProperty) with {
+            fontSize = mediumFontSize
+            width = inputFieldPreferedSize
+        }
     }
 
 }

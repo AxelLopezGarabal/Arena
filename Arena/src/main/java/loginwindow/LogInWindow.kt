@@ -36,8 +36,8 @@ class LogInWindow : Window<LoginModel> {
     private fun createInputPanel(owner: Panel) {
         Panel(owner) with {
             asColumns(2)
-			emailField(owner)
-			passwordField(owner)
+			emailField(it)
+			passwordField(it)
         }
     }
 
