@@ -17,16 +17,11 @@ class AdministracionModel(var wallet: DigitalWallet) {
     val userComparator = listOf(ByFirstNameComparator(), ByLastNameComparator(), ByEmailComparator())
     var selectedUserComparator = userComparator.first()
 
+    var allUsers = initAllUsers()
     var selectedUser = getShowedUsers().first()
 
     @Dependencies("textoCampoDeBusqueda", "selectedUserComparator", "allUsers")
-    fun getShowedUsers() =
-        wallet.users
-            .sortedWith(selectedUserComparator)
-            .filter { FiltroCompleto(textoCampoDeBusqueda).test(it) }
-            .map { UserModel(it) }
-
-    var allUsers = initAllUsers()
+    fun getShowedUsers() = initAllUsers()
 
     private fun initAllUsers() =
         wallet.users
