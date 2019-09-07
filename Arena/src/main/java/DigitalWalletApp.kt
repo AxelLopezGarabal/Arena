@@ -5,7 +5,7 @@ import wallet.DigitalWallet
 
 class WalletApp(val wallet: DigitalWallet) : Application() {
     override fun createMainWindow() =
-            LogInWindow(this, LoginModel(wallet))
+        LogInWindow(this, LoginModel(wallet))
 }
 
 fun main(args: Array<String>) {

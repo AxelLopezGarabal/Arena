@@ -11,7 +11,9 @@ import wallet.DigitalWallet
 import wallet.User
 
 @Observable
-class AdministracionModel(var wallet: DigitalWallet) {
+class AdministracionModel(var wallet: DigitalWallet, val loggedUser: User) {
+    // usar adapter en lugar de esto
+    val loggedUserFullName = loggedUser.fullName()
 
     var textoCampoDeBusqueda = ""
 

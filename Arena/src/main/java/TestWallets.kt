@@ -6,7 +6,7 @@ import wallet.User
 object TestWallets {
 
     fun testWalletA(): DigitalWallet {
-        val pepeAdmin = User("1", "Pepe", "Gomez", "bbb@gmail.com", "pass123", true)
+        val pepeAdmin = User("1", "Pepe", "Gomez", "a@a.com", "pass", true)
         val juan      = User("2", "Juan", "Perez", "aaa@gmail.com", "pass123", false)
         val alvaro    = User("3", "Alvaro", "Gomez", "ccc@hotmail.com", "pass123", false)
 
@@ -17,6 +17,7 @@ object TestWallets {
         wallet.register(pepeAdmin)
         wallet.register(juan)
         wallet.register(alvaro)
+
 
         wallet.assignAccount(juan, juanAccount)
 

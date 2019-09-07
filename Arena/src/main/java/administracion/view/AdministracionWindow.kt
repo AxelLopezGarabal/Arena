@@ -14,6 +14,8 @@ import org.uqbar.arena.windows.WindowOwner
 import remove_user.view.RemoveUserWindow
 import modify_user.view.ModifyUserWindow
 import modify_user.view_model.ModifyUserModel
+import org.uqbar.arena.widgets.Label
+import wallet.User
 
 class AdministracionWindow : SimpleWindow<AdministracionModel> {
     override fun addActions(p0: Panel?) {}
@@ -28,6 +30,7 @@ class AdministracionWindow : SimpleWindow<AdministracionModel> {
         createSearchPanel(mainPanel)
         createUsersTable(mainPanel)
         createButtonsPanel(mainPanel)
+        createLoggedUserPanel(mainPanel)
     }
 
     private fun setUpWindow() {
@@ -100,5 +103,12 @@ class AdministracionWindow : SimpleWindow<AdministracionModel> {
         dialog.open()
     }
 
+    private fun createLoggedUserPanel(owner: Panel) {
+        Panel(owner) with {
+            asHorizontal()
+            Widgets.infoLabel(it, "Loggeado como:")
+            Widgets.infoBindedLabel(it, "loggedUserFullName")
+        }
+    }
 
 }

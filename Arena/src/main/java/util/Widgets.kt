@@ -15,18 +15,25 @@ object Widgets {
     val largeInputFieldSize    = 200
 
     val defaultForegroundColor = Color(0x2551FF)
-    val warningForegroundColor = Color(0xB50705)
+    val defaultBackgroundColor = Color(0x2EACFF)
 
+    val warningForegroundColor = Color(0xB50705)
     val warningBackgroundColor = Color(0x690805)
+
+    val infoForegroundColor    = Color(0x26A833)
 
     fun titleLabel(owner: Panel, text: String) =
         label(owner, text) with {
             fontSize   = 32
             foreground = defaultForegroundColor
+            background = defaultBackgroundColor
         }
 
     fun warningTitleLabel(owner: Panel, text: String) =
-        titleLabel(owner, text) with { foreground = warningForegroundColor }
+        titleLabel(owner, text) with {
+            foreground = warningForegroundColor
+            background = warningBackgroundColor
+        }
 
     fun button(owner: Panel, caption: String, onClickBlock: () -> Unit = {}) =
         Button(owner)
@@ -41,6 +48,12 @@ object Widgets {
 
     fun bindedLabel(owner: Panel, propertyName: String) =
         Label(owner) with { bindTo(propertyName) }
+
+    fun infoLabel(owner: Panel, text: String) =
+        label(owner, text) with { foreground = infoForegroundColor }
+
+    fun infoBindedLabel(owner: Panel, propertyName: String) =
+        Label(owner) with { bindTo(propertyName); foreground = infoForegroundColor }
 
     fun textBox(owner: Panel, propertyName: String) =
         TextBox(owner) with { bindTo(propertyName) }
@@ -110,6 +123,5 @@ object Widgets {
             foreground = warningForegroundColor
             background = warningBackgroundColor
         }
-
 
 }

@@ -56,6 +56,6 @@ class LogInWindow : Window<LoginModel> {
 
 	private fun openAdministracionWindow() {
 		close()
-		AdministracionWindow(thisWindow, AdministracionModel(modelObject.wallet)).open()
+		AdministracionWindow(thisWindow, AdministracionModel(modelObject.wallet, modelObject.loggedUser())).open()
 	}
 }
