@@ -19,12 +19,12 @@ class RegisterNewUserWindow : Dialog<RegisterNewUserModel> {
     }
 	
 	private fun setUpWindow(owner: Panel) {
-        setTitle("Digital Wallet - UI")
+        setTitle("Digital Wallet - Alta de nuevo usuario")
         setMinWidth(300)
     }
 
 	private fun createTitle(owner: Panel) =
-		Widgets.titleLabel(owner, "Registrar nuevo usuario")
+		Widgets.titleLabel(owner, "Alta de nuevo usuario")
 
 	
 	private fun createInputFieldasdasdasdasd(owner: Panel) =

@@ -1,10 +1,11 @@
 package newUserWindow.view_model
 
 import org.uqbar.commons.model.annotations.Observable
+import wallet.DigitalWallet
 import wallet.User
 
 @Observable
-class RegisterNewUserModel {
+class RegisterNewUserModel(val wallet: DigitalWallet) {
 
     var idCard        = ""
     var firstName     = ""

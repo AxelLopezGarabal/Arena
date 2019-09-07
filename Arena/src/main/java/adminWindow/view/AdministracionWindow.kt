@@ -29,12 +29,12 @@ class AdministracionWindow : SimpleWindow<AdministracionModel> {
     }
 
     private fun setUpWindow() {
-        setTitle("Digital Wallet - Administracion")
+        setTitle("Digital Wallet - Administracion de usuarios")
         setMinWidth(500)
     }
 
     private fun createTitle(owner: Panel) =
-        Widgets.titleLabel(owner, "Cuentas")
+        Widgets.titleLabel(owner, "Usuarios registrados")
 
     private fun createSearchPanel(owner: Panel) =
         Panel(owner) with {
@@ -53,7 +53,7 @@ class AdministracionWindow : SimpleWindow<AdministracionModel> {
         Panel(owner) with {
             asHorizontal()
             Widgets.label(it, "Ordenar por:")
-            RadioSelector<String>(owner) with {
+            RadioSelector<String>(it) with {
                 bindItemsTo("userComparator")
                 bindSelectedTo("selectedUserComparator")
             }
@@ -64,6 +64,7 @@ class AdministracionWindow : SimpleWindow<AdministracionModel> {
             bindItemsTo("showedUsers")
             bindTo("selectedUser")
             height = 500
+            visibleRows = 10
             Widgets.column(it, "Nombre", "firstName")
             Widgets.column(it, "Apellido", "lastName")
             Widgets.column(it, "E-mail", "email")
@@ -73,14 +74,14 @@ class AdministracionWindow : SimpleWindow<AdministracionModel> {
     private fun createButtonsPanel(owner: Panel) =
         Panel(owner) with {
             asHorizontal()
-            Widgets.largeButton(it, "Ver")       { }
+            Widgets.largeButton(it, "Dar de alta nuevo usuario") { openRegisterNewUserWindow() }
+            Widgets.largeButton(it, "Ver") { }
             Widgets.largeButton(it, "Modificar") { }
-            Widgets.largeButton(it, "Agregar")   { openRegisterNewUserWindow() }
-            Widgets.largeButton(it, "Eliminar")  { openRemoveUserWindow() }
+            Widgets.largeWarningButton(it, "Eliminar") { openRemoveUserWindow() }
         }
 
     private fun openRegisterNewUserWindow() {
-        val dialog = RegisterNewUserWindow(this, RegisterNewUserModel())
+        val dialog = RegisterNewUserWindow(this, RegisterNewUserModel(modelObject.wallet))
         dialog.onAccept { modelObject.register(dialog.createdUser()) }
         dialog.open()
     }

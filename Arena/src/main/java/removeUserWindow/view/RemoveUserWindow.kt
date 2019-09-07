@@ -12,13 +12,18 @@ class RemoveUserWindow : Dialog<UserModel> {
     constructor(owner: WindowOwner, model: UserModel) : super(owner, model)
 
     override fun createFormPanel(owner: Panel) {
+        setUpWindow()
         createTitle(owner)
         createMessage(owner)
         createButtons(owner)
     }
 
+    private fun setUpWindow() {
+        setTitle("Digital Wallet - Baja de usuario")
+    }
+
     private fun createTitle(owner: Panel) {
-        Widgets.titleLabel(owner, "Advertencia")
+        Widgets.warningTitleLabel(owner, "Baja de usuario")
     }
 
     private fun createMessage(owner: Panel) {

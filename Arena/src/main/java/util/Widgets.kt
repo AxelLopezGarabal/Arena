@@ -7,16 +7,26 @@ import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.tables.Table
-import org.uqbar.lacar.ui.model.ControlBuilder
 import java.awt.Color
 
 object Widgets {
-    val mediumFontSize = 14
+    val mediumFontSize         = 14
     val inputFieldPreferedSize = 150
-    val largeInputFieldSize = 200
+    val largeInputFieldSize    = 200
+
+    val defaultForegroundColor = Color(0x2551FF)
+    val warningForegroundColor = Color(0xB50705)
+
+    val warningBackgroundColor = Color(0x690805)
 
     fun titleLabel(owner: Panel, text: String) =
-        label(owner, text) with { fontSize = 32 }
+        label(owner, text) with {
+            fontSize   = 32
+            foreground = defaultForegroundColor
+        }
+
+    fun warningTitleLabel(owner: Panel, text: String) =
+        titleLabel(owner, text) with { foreground = warningForegroundColor }
 
     fun button(owner: Panel, caption: String, onClickBlock: () -> Unit = {}) =
         Button(owner)
@@ -94,5 +104,12 @@ object Widgets {
         label(owner, labelText)
         return CheckBox(owner) with { bindTo(bindedProperty) }
     }
+
+    fun largeWarningButton(owner: Panel, caption: String, onClickBlock: () -> Unit) =
+        largeButton(owner, caption, onClickBlock) with {
+            foreground = warningForegroundColor
+            background = warningBackgroundColor
+        }
+
 
 }
