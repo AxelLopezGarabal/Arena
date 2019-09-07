@@ -5,6 +5,8 @@ import administracion.view_model.user_comparators.ByEmailComparator
 import administracion.view_model.user_comparators.ByFirstNameComparator
 import administracion.view_model.user_comparators.ByLastNameComparator
 import administracion.view_model.filtros_de_usuarios.FiltroCompleto
+import login.view.LogInWindow
+import org.uqbar.arena.windows.Window
 import org.uqbar.commons.model.annotations.Dependencies
 import org.uqbar.commons.model.annotations.Observable
 import wallet.DigitalWallet

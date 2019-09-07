@@ -3,6 +3,8 @@ package com.unqui_arena.administracion.view
 import administracion.view_model.UserModel
 import com.unqui_arena.Widgets
 import com.unqui_arena.administracion.view_model.AdministracionModel
+import login.view.LogInWindow
+import login.view_model.LoginModel
 import new_user.view.RegisterNewUserWindow
 import new_user.view_model.RegisterNewUserModel
 import org.uqbar.arena.kotlin.extensions.*
@@ -15,6 +17,7 @@ import remove_user.view.RemoveUserWindow
 import modify_user.view.ModifyUserWindow
 import modify_user.view_model.ModifyUserModel
 import org.uqbar.arena.widgets.Label
+import org.uqbar.arena.windows.Window
 import wallet.User
 
 class AdministracionWindow : SimpleWindow<AdministracionModel> {
@@ -121,6 +124,7 @@ class AdministracionWindow : SimpleWindow<AdministracionModel> {
 
     private fun logout() {
         close()
+        LogInWindow(this, LoginModel(modelObject.wallet)).open()
     }
 
 }
