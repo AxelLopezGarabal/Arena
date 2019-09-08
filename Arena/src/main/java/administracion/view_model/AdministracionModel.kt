@@ -12,6 +12,8 @@ import wallet.User
 
 @Observable
 class AdministracionModel(var wallet: DigitalWallet, val loggedUser: User) {
+    val searchIconPath = "search-icon.png"
+
     // usar adapter en lugar de esto
     val loggedUserFullName = loggedUser.fullName()
 
@@ -34,5 +36,9 @@ class AdministracionModel(var wallet: DigitalWallet, val loggedUser: User) {
 
     fun reloadAllUsers() {
         allUsersModel = initAllUsers()
+    }
+
+    fun resetSearchText() {
+        textoCampoDeBusqueda = ""
     }
 }

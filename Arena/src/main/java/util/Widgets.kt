@@ -142,5 +142,7 @@ object Widgets {
             setAsDefault()
         }
 
+    fun icon(owner: Panel, pathToImage: String) =
+        Label(owner) with { bindImageTo(pathToImage) }
 
 }

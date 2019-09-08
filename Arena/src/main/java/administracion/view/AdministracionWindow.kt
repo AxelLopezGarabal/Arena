@@ -28,19 +28,24 @@ class AdministracionWindow : SimpleWindow<AdministracionModel> {
     override fun createContents(mainPanel: Panel) {
         setUpWindow()
         createTitle(mainPanel)
-        createSearchPanel(mainPanel)
-        createUsersTable(mainPanel)
-        createButtonsPanel(mainPanel)
+        createAdministracionPanel(mainPanel)
         createLoggedUserPanel(mainPanel)
     }
 
     private fun setUpWindow() {
         setTitle("Digital Wallet - Administracion de usuarios")
-        setMinWidth(500)
     }
 
     private fun createTitle(owner: Panel) =
-        Widgets.titleLabel(owner, "Usuarios registrados")
+            Widgets.titleLabel(owner, "Usuarios registrados")
+
+    private fun createAdministracionPanel(owner: Panel) {
+        createSearchPanel(owner)
+        Panel(owner).asHorizontal() with {
+            createUsersTable(it)
+            createOperationButtonsPanel(it)
+        }
+    }
 
     private fun createSearchPanel(owner: Panel) =
         Panel(owner) with {
@@ -51,6 +56,7 @@ class AdministracionWindow : SimpleWindow<AdministracionModel> {
     private fun createSearchInput(owner: Panel) =
         Panel(owner) with {
             asHorizontal()
+            Widgets.icon(it, "searchIconPath")
             Widgets.label(it, "Buscar:")
             Widgets.textBox(it, "textoCampoDeBusqueda").setWidth(500)
         }
@@ -69,7 +75,6 @@ class AdministracionWindow : SimpleWindow<AdministracionModel> {
         Table<UserModel>(owner, UserModel::class.java). with {
             bindItemsTo("seachedResultUserModels")
             bindTo("selectedUserModel")
-            height = 500
             visibleRows = 10
             Widgets.column(it, "Nombre", "firstName")
             Widgets.column(it, "Apellido", "lastName")
@@ -77,9 +82,9 @@ class AdministracionWindow : SimpleWindow<AdministracionModel> {
             Widgets.column(it, "Es administrador", "esAdmin")
         }
 
-    private fun createButtonsPanel(owner: Panel) =
+    private fun createOperationButtonsPanel(owner: Panel) =
         Panel(owner) with {
-            asHorizontal()
+            asVertical()
             Widgets.largeButton(it, "Dar de alta nuevo usuario") { openRegisterNewUserWindow() }
             Widgets.largeButton(it, "Ver") { }
             Widgets.largeButton(it, "Modificar") { openModifySelectedUserWindow() }
@@ -88,7 +93,10 @@ class AdministracionWindow : SimpleWindow<AdministracionModel> {
 
     private fun openRegisterNewUserWindow() {
         val dialog = RegisterNewUserWindow(this, RegisterNewUserModel(modelObject.wallet))
-        dialog.onAccept { modelObject.reloadAllUsers() }
+        dialog.onAccept {
+            modelObject.reloadAllUsers()
+            modelObject.resetSearchText()
+        }
         dialog.open()
     }
 

@@ -46,7 +46,7 @@ class ModifyUserWindow : Dialog<ModifyUserModel> {
     }
 
     private fun createEmailField(owner: Panel) {
-        Widgets.labeledTextBox(owner, "Email:", "email")
+        Widgets.labeledTextBox(owner, "Email:", "email").setWidth(200)
     }
 
     private fun createCVUField(owner: Panel) {

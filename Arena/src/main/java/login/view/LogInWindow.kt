@@ -14,8 +14,6 @@ import org.uqbar.arena.windows.WindowOwner
 class LogInWindow : Window<LoginModel> {
     constructor(owner: WindowOwner, model: LoginModel) : super(owner, model)
 
-	val thisWindow = this
-
     override fun createContents(mainPanel: Panel) {
 		setUpWindow(mainPanel)
 		welcomeMessage(mainPanel)
@@ -60,6 +58,10 @@ class LogInWindow : Window<LoginModel> {
 
 	private fun openAdministracionWindow() {
 		close()
-		AdministracionWindow(thisWindow, AdministracionModel(modelObject.wallet, modelObject.loggedUser())).open()
+
+		AdministracionWindow(
+			this,
+			AdministracionModel(modelObject.wallet, modelObject.loggedUser())
+		).open()
 	}
 }
