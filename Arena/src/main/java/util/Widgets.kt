@@ -106,6 +106,12 @@ object Widgets {
     fun mediumLabel(owner: Panel, text: String) =
         label(owner, text) with { fontSize = mediumFontSize }
 
+    fun errorLabel(owner: Panel, texto: String, modelProperty: String) =
+        label(owner, texto) with {
+            bindVisibleTo(modelProperty)
+            foreground = warningForegroundColor
+        }
+
     fun mediumTextBox(owner: Panel, bindedProperty: String) =
         textBox(owner, bindedProperty) with {
             fontSize = mediumFontSize
@@ -124,10 +130,12 @@ object Widgets {
             width    = inputFieldPreferedSize
         }
 
-    fun checkBoxField(owner: Panel, labelText: String, bindedProperty: String): CheckBox {
-        label(owner, labelText)
-        return CheckBox(owner) with { bindTo(bindedProperty) }
-    }
+    fun checkBoxField(owner: Panel, labelText: String, bindedProperty: String) =
+        Panel(owner) with {
+            asHorizontal()
+            label(it, labelText)
+            CheckBox(it) with { bindTo(bindedProperty) }
+        }
 
     fun largeWarningButton(owner: Panel, caption: String, onClickBlock: () -> Unit) =
         largeButton(owner, caption, onClickBlock) with {

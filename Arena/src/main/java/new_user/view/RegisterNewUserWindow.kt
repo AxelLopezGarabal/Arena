@@ -7,6 +7,7 @@ import org.uqbar.arena.widgets.*
 import org.uqbar.arena.windows.WindowOwner
 import new_user.view_model.RegisterNewUserModel
 import org.uqbar.arena.windows.Dialog
+import org.uqbar.lacar.ui.model.ControlBuilder
 
 class RegisterNewUserWindow : Dialog<RegisterNewUserModel> {
 
@@ -36,7 +37,9 @@ class RegisterNewUserWindow : Dialog<RegisterNewUserModel> {
 		}
 	
 	private fun userFields(owner: Panel) {
-		Panel(owner).asColumns(2) with {
+		Panel(owner) with {
+			// Lo deje vertical para que se vean bien los error labels
+			//asColumns(2)
 			idCardField(it)
 			nameField(it)
 			lastnameField(it)
@@ -57,13 +60,20 @@ class RegisterNewUserWindow : Dialog<RegisterNewUserModel> {
 		Widgets.labeledTextBox(owner, "Apellido:", "lastName")
 
 	private fun emailField(owner: Panel) =
-		Widgets.labeledTextBox(owner, "E-mail", "email")
+		Panel(owner) with {
+			Widgets.labeledTextBox(it, "E-mail", "email")
+			Widgets.errorLabel(it, "Eso que ingresaste no es un email...", "checkInvalidMail")
+			Widgets.errorLabel(it, "Alguien ya registro este email", "checkRepeatedMail")
+		}
 
 	private fun passwordField(owner: Panel) =
 		Widgets.labeledPasswordField(owner, "Password:", "password")
 
 	private fun passwordFieldAgain(owner: Panel) =
-		Widgets.labeledPasswordField(owner, "Repita su password:", "passwordAgain").setWidth(150)
+		Panel(owner) with {
+			Widgets.labeledPasswordField(it, "Repita su password:", "passwordAgain")
+			Widgets.errorLabel(it, "Papafrita, metiste 2 passwords distintos", "checkDifferentPasswords")
+		}
 
 	private fun isAdminField(owner: Panel) =
 		Widgets.checkBoxField(owner, "Es administrador:", "esAdmin")
@@ -79,12 +89,12 @@ class RegisterNewUserWindow : Dialog<RegisterNewUserModel> {
 		}
 	
 	private fun acceptBotton(owner: Panel) =
-		Widgets.button(owner, "Aceptar") { registerNewUser() }
+		Widgets.button(owner, "Aceptar") { registerNewUser() } with {
+			//bindVisibleTo("everythingIsOK")
+		}
 	
 	private fun cancelBotton(owner: Panel) =
 		Widgets.button(owner, "Cancelar") { cancel() }
-
-	//fun createdUser() = modelObject.userModel
 
 	fun registerNewUser() {
 		modelObject.registerNewUser()
