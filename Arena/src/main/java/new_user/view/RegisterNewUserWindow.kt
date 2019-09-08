@@ -20,18 +20,15 @@ class RegisterNewUserWindow : Dialog<RegisterNewUserModel> {
 	
 	private fun setUpWindow(owner: Panel) {
         setTitle("Digital Wallet - Alta de nuevo usuario")
-        setMinWidth(300)
     }
 
 	private fun createTitle(owner: Panel) =
 		Widgets.titleLabel(owner, "Alta de nuevo usuario")
-
 	
 	private fun createInputFieldasdasdasdasd(owner: Panel) =
 		Panel(owner) with {
-			asColumns(2)
 			userFields(it)
-				
+
 			blankSpace(it)
 			blankSpace(it)
 						
@@ -66,7 +63,7 @@ class RegisterNewUserWindow : Dialog<RegisterNewUserModel> {
 		Widgets.labeledPasswordField(owner, "Password:", "password")
 
 	private fun passwordFieldAgain(owner: Panel) =
-		Widgets.labeledPasswordField(owner, "Repita su password:", "passwordAgain")
+		Widgets.labeledPasswordField(owner, "Repita su password:", "passwordAgain").setWidth(150)
 
 	private fun isAdminField(owner: Panel) =
 		Widgets.checkBoxField(owner, "Es administrador:", "esAdmin")

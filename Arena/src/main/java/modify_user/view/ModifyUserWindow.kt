@@ -8,6 +8,7 @@ import org.uqbar.arena.windows.WindowOwner
 import modify_user.view_model.ModifyUserModel
 import org.uqbar.arena.kotlin.extensions.asColumns
 import org.uqbar.arena.kotlin.extensions.asHorizontal
+import org.uqbar.arena.kotlin.extensions.asVertical
 
 class ModifyUserWindow : Dialog<ModifyUserModel> {
     constructor(owner: WindowOwner, model: ModifyUserModel) : super(owner, model)

@@ -10,6 +10,8 @@ import org.uqbar.arena.widgets.tables.Table
 import java.awt.Color
 
 object Widgets {
+    val defaultTextInputWidth  = 200
+
     val mediumFontSize         = 14
     val inputFieldPreferedSize = 150
     val largeInputFieldSize    = 200
@@ -65,13 +67,13 @@ object Widgets {
         Label(owner) with { bindTo(propertyName); foreground = infoForegroundColor }
 
     fun textBox(owner: Panel, propertyName: String) =
-        TextBox(owner) with { bindTo(propertyName) }
+        TextBox(owner) with { bindTo(propertyName); width = defaultTextInputWidth }
 
     fun numericField(owner: Panel, propertyName: String) =
         NumericField(owner) with { bindTo(propertyName) }
 
     fun passwordField(owner: Panel, propertyName: String) =
-        PasswordField(owner) with { bindTo(propertyName) }
+        PasswordField(owner) with { bindTo(propertyName); width = defaultTextInputWidth }
 
     fun table(owner: Panel, itemType: Class<*>, propertyName: String) =
         Table<Any>(owner, itemType as Class<Any>) with {
