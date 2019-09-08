@@ -1,10 +1,11 @@
-package administracion.view_model
+package asdasdasdasd
 
+import org.uqbar.commons.model.Entity
 import org.uqbar.commons.model.annotations.Observable
 import wallet.User
 
 @Observable
-class UserModel(val user: User) {
+class UserModel(val user: User) : Entity() {
     val model = user
 
     var firstName = user.firstName

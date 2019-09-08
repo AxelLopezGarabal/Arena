@@ -1,6 +1,6 @@
 package com.unqui_arena.administracion.view
 
-import administracion.view_model.UserModel
+import asdasdasdasd.UserModel
 import com.unqui_arena.Widgets
 import com.unqui_arena.administracion.view_model.AdministracionModel
 import login.view.LogInWindow
@@ -16,6 +16,7 @@ import org.uqbar.arena.windows.WindowOwner
 import remove_user.view.RemoveUserWindow
 import modify_user.view.ModifyUserWindow
 import modify_user.view_model.ModifyUserModel
+import org.uqbar.arena.bindings.ObservableProperty
 import remove_user.view_model.RemoveUserModel
 
 class AdministracionWindow : SimpleWindow<AdministracionModel> {
@@ -66,7 +67,7 @@ class AdministracionWindow : SimpleWindow<AdministracionModel> {
             asHorizontal()
             Widgets.label(it, "Ordenar por:")
             RadioSelector<String>(it) with {
-                bindItemsTo("userComparator")
+                bindItemsTo("userComparators")
                 bindSelectedTo("selectedUserComparator")
             }
         }
@@ -110,7 +111,6 @@ class AdministracionWindow : SimpleWindow<AdministracionModel> {
     private fun openRemoveSelectedUserWindow() {
         val dialog = RemoveUserWindow(this, RemoveUserModel(modelObject.selectedUserModel, modelObject.wallet))
         dialog.onAccept { modelObject.reloadAllUsers() }
-        //dialog.onAccept { modelObject.deleteSelectedUser() }
         dialog.open()
     }
 
