@@ -9,10 +9,10 @@ object TestWallets {
 
         val wallet = DigitalWallet()
 
-        prepare("0001", "1", "Pepe", "Gomez", "a@a.com", "pass", true, wallet)
-        prepare("0002","2", "Juan", "Perez", "juanperez@gmail.com", "pass", true, wallet)
-        prepare("0003","3", "Alvaro", "Gomez", "alvaro@hotmail.com", "pass", true, wallet)
-        prepare("0004","4", "Qwerty", "Asdf", "asd@gmail.com", "pass", true, wallet)
+        prepare("0001", "1", "Pepe", "Gomez", "admin@admin.com", "pass", true, wallet)
+        prepare("0002","2", "Juan", "Perez", "juanperez@gmail.com", "pass", false, wallet)
+        prepare("0003","3", "Alvaro", "Gomez", "alvaro@hotmail.com", "pass", false, wallet)
+        prepare("0004","4", "Qwerty", "Asdf", "asd@gmail.com", "pass", false, wallet)
 
         wallet.addGift(DigitalWallet.createGift(wallet.accountByCVU("0002"), 200.0))
         wallet.transfer("0002", "0004", 80.0)

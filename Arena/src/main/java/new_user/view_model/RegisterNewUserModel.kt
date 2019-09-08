@@ -3,8 +3,7 @@ package new_user.view_model
 import org.uqbar.commons.model.annotations.Dependencies
 import org.uqbar.commons.model.annotations.Observable
 import org.uqbar.commons.model.exceptions.UserException
-import wallet.DigitalWallet
-import wallet.User
+import wallet.*
 
 @Observable
 class RegisterNewUserModel(val wallet: DigitalWallet) {
@@ -18,12 +17,18 @@ class RegisterNewUserModel(val wallet: DigitalWallet) {
     var passwordAgain = ""
     var esAdmin       = false
 
-    fun makeUser() = User(idCard, firstName, lastName, email, password, esAdmin)
-
     fun registerNewUser() {
         validateInput()
-        wallet.register(makeUser())
+        val user = makeUser()
+        val account = makeAccountFor(user)
+        wallet.register(user)
+        wallet.assignAccount(user, account)
+        wallet.addGift(DigitalWallet.createGift(wallet.accountByCVU(account.cvu), 200.0))
     }
+
+    private fun makeUser() = User(idCard, firstName, lastName, email, password, esAdmin)
+
+    private fun makeAccountFor(user: User) = Account(user, DigitalWallet.generateNewCVU())
 
     @Dependencies("email")
     fun getCheckInvalidMail() =
