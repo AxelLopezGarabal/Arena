@@ -5,6 +5,7 @@ import com.unqui_arena.administracion.view.AdministracionWindow
 import com.unqui_arena.administracion.view_model.AdministracionModel
 import login.view_model.LoginModel
 import org.uqbar.arena.kotlin.extensions.asColumns
+import org.uqbar.arena.kotlin.extensions.bindImageTo
 import org.uqbar.arena.kotlin.extensions.with
 import org.uqbar.arena.widgets.*
 import org.uqbar.arena.windows.Window
@@ -28,6 +29,7 @@ class LogInWindow : Window<LoginModel> {
 	
 	private fun welcomeMessage(owner: Panel){
 		Widgets.titleLabel(owner, "Welcome")
+		Label(owner).bindImageTo("wellcomeImage")
 	}
 	
     private fun createInputPanel(owner: Panel) {
@@ -50,9 +52,9 @@ class LogInWindow : Window<LoginModel> {
 	
     private fun createButtonsPanel(owner: Panel) {
         Panel(owner) with {
-			Widgets.largeButton(owner, "Login") {
-				openAdministracionWindow()
-			}.setAsDefault()
+			Widgets.largeButtonDefaultColor(owner, "Login") { openAdministracionWindow() } with {
+				setAsDefault()
+			}
 		}
     }
 

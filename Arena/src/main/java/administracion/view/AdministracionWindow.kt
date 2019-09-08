@@ -119,7 +119,7 @@ class AdministracionWindow : SimpleWindow<AdministracionModel> {
     }
 
     private fun createLogoutButton(owner: Panel) =
-        Widgets.button(owner, "Cerrar sesion") { logout() }
+        Widgets.buttonDefaultColor(owner, "Cerrar sesion") { logout() }
 
     private fun logout() {
         close()

@@ -14,8 +14,8 @@ object Widgets {
     val inputFieldPreferedSize = 150
     val largeInputFieldSize    = 200
 
-    val defaultForegroundColor = Color(0x2551FF)
-    val defaultBackgroundColor = Color(0x2EACFF)
+    val defaultForegroundColor = Color(0x2A7A69)
+    val defaultBackgroundColor = Color(0x38AB99)
 
     val warningForegroundColor = Color(0xB50705)
     val warningBackgroundColor = Color(0x690805)
@@ -43,6 +43,14 @@ object Widgets {
 
     fun largeButton(owner: Panel, caption: String, onClickBlock: () -> Unit) =
         button(owner, caption, onClickBlock) with { fontSize = 18; alignCenter() }
+
+    fun largeButtonDefaultColor(owner: Panel, caption: String, onClickBlock: () -> Unit) =
+        button(owner, caption, onClickBlock) with {
+            fontSize = 18
+            foreground = defaultForegroundColor
+            background = defaultBackgroundColor
+            alignCenter()
+        }
 
     fun label(owner: Panel, text: String) =
         Label(owner).setText(text)
@@ -99,19 +107,19 @@ object Widgets {
     fun mediumTextBox(owner: Panel, bindedProperty: String) =
         textBox(owner, bindedProperty) with {
             fontSize = mediumFontSize
-            width = inputFieldPreferedSize
+            width    = inputFieldPreferedSize
         }
 
     fun largeTextBox(owner: Panel, bindedProperty: String) =
         textBox(owner, bindedProperty) with {
             fontSize = mediumFontSize
-            width = largeInputFieldSize
+            width    = largeInputFieldSize
         }
 
     fun mediumPasswordField(owner: Panel, bindedProperty: String) =
         passwordField(owner, bindedProperty) with {
             fontSize = mediumFontSize
-            width = inputFieldPreferedSize
+            width    = inputFieldPreferedSize
         }
 
     fun checkBoxField(owner: Panel, labelText: String, bindedProperty: String): CheckBox {
@@ -126,5 +134,13 @@ object Widgets {
             foreground = warningBackgroundColor
             background = warningForegroundColor
         }
+
+    fun buttonDefaultColor(owner: Panel, caption: String, onClickBlock: () -> Unit) =
+        button(owner, caption, onClickBlock) with {
+            foreground = defaultForegroundColor
+            background = defaultBackgroundColor
+            setAsDefault()
+        }
+
 
 }

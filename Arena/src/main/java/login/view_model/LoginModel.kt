@@ -9,6 +9,8 @@ import wallet.User
 @Observable
 class LoginModel(val wallet: DigitalWallet) {
 
+    val wellcomeImage = "wellcome.jpg"
+
     var email    = wallet.getAllAdmins().first().email
     var password = wallet.getAllAdmins().first().password
 
