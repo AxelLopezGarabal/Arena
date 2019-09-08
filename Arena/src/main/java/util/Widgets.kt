@@ -86,13 +86,6 @@ object Widgets {
             bindContentsToProperty(propertyName)
         }
 
-    fun searchBox(owner: Panel, propertyName: String, textBoxWidth: Int, onSeachBlock: () -> Unit = {}) {
-        Panel(owner).asHorizontal() with {
-            button(it, "Buscar", onSeachBlock)
-            textBox(it, propertyName).setWidth(textBoxWidth)
-        }
-    }
-
     fun labeledTextBox(owner: Panel, labelText: String, propertyName: String): TextBox {
         label(owner, labelText)
         return textBox(owner, propertyName)
@@ -154,5 +147,11 @@ object Widgets {
 
     fun icon(owner: Panel, pathToImage: String) =
         Label(owner) with { bindImageTo(pathToImage) }
+
+    fun radioSelector(owner: Panel, bindItemsTo: String, bindSelectedTo: String) =
+        RadioSelector<String>(owner) with {
+            bindItemsTo(bindItemsTo)
+            bindSelectedTo(bindSelectedTo)
+        }
 
 }

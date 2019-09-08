@@ -35,4 +35,8 @@ class AdministracionModel(var wallet: DigitalWallet, val loggedUser: User) {
     fun resetSearchText() {
         textoCampoDeBusqueda = ""
     }
+
+    fun refreshView() {
+        resetSearchText()
+    }
 }

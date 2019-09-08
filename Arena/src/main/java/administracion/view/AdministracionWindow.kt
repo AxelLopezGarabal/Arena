@@ -1,5 +1,9 @@
 package com.unqui_arena.administracion.view
 
+import account_info.model.AccountInfoModel
+import account_info.view.AccountInfoWindow
+import administracion.view.SearchPanel
+import asdasdasdasd.DigitalWalletWindow
 import asdasdasdasd.UserModel
 import com.unqui_arena.Widgets
 import com.unqui_arena.administracion.view_model.AdministracionModel
@@ -9,72 +13,44 @@ import new_user.view.RegisterNewUserWindow
 import new_user.view_model.RegisterNewUserModel
 import org.uqbar.arena.kotlin.extensions.*
 import org.uqbar.arena.widgets.Panel
-import org.uqbar.arena.widgets.RadioSelector
 import org.uqbar.arena.widgets.tables.Table
-import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
 import remove_user.view.RemoveUserWindow
 import modify_user.view.ModifyUserWindow
 import modify_user.view_model.ModifyUserModel
-import org.uqbar.arena.bindings.ObservableProperty
-import org.uqbar.arena.bindings.PropertyAdapter
-import org.uqbar.arena.widgets.Label
 import remove_user.view_model.RemoveUserModel
-import wallet.User
 
-class AdministracionWindow : SimpleWindow<AdministracionModel> {
-    override fun addActions(p0: Panel?) {}
+class AdministracionWindow : DigitalWalletWindow<AdministracionModel> {
 
-    override fun createFormPanel(p0: Panel?) {}
+    override var titleText = "Administracion de usuarios"
 
     constructor(owner: WindowOwner, model: AdministracionModel) : super(owner, model)
 
-    override fun createContents(mainPanel: Panel) {
-        setUpWindow()
-        createTitle(mainPanel)
-        createAdministracionPanel(mainPanel)
-        createLoggedUserPanel(mainPanel)
-    }
+    override fun createHeader(owner: Panel) { createSearchPanel(owner) }
+    override fun createBody(owner: Panel)   { createAdministracionPanel(owner) }
+    override fun createFooter(owner: Panel) { createLoggedUserPanel(owner) }
 
-    private fun setUpWindow() {
-        setTitle("Digital Wallet - Administracion de usuarios")
-    }
+    private fun createSearchPanel(owner: Panel) =
+        Panel(owner) with {
+            SearchPanel(it, "Buscar:", "textoCampoDeBusqueda", 500)
+            RadioSelectorPanel(it, "Ordenar por:", "userComparators", "selectedUserComparator")
+        }
 
-    private fun createTitle(owner: Panel) =
-            Widgets.titleLabel(owner, "Administracion de usuarios")
-
-    private fun createAdministracionPanel(owner: Panel) {
-        createSearchPanel(owner)
+    private fun createAdministracionPanel(owner: Panel) =
         Panel(owner).asHorizontal() with {
             createUsersTable(it)
             createOperationButtonsPanel(it)
         }
+
+    private fun createLoggedUserPanel(owner: Panel) =
+        LoggedUserFooter(owner, modelObject.loggedUser) { logout() }
+
+    private fun logout() {
+        close()
+        LogInWindow(this, LoginModel(modelObject.wallet)).open()
     }
 
-    private fun createSearchPanel(owner: Panel) =
-        Panel(owner) with {
-            createSearchInput(owner)
-            createFilterResults(owner)
-        }
-
-    private fun createSearchInput(owner: Panel) =
-        Panel(owner) with {
-            asHorizontal()
-            Widgets.icon(it, "searchIconPath")
-            Widgets.label(it, "Buscar:")
-            Widgets.textBox(it, "textoCampoDeBusqueda").setWidth(500)
-        }
-
-    private fun createFilterResults(owner: Panel) =
-        Panel(owner) with {
-            asHorizontal()
-            Widgets.label(it, "Ordenar por:")
-            RadioSelector<String>(it) with {
-                bindItemsTo("userComparators")
-                bindSelectedTo("selectedUserComparator")
-            }
-        }
-
+    //
     private fun createUsersTable(owner: Panel) =
         Table<UserModel>(owner, UserModel::class.java). with {
             bindItemsTo("seachedResultUserModels")
@@ -84,58 +60,38 @@ class AdministracionWindow : SimpleWindow<AdministracionModel> {
             Widgets.column(it, "Apellido", "lastName")
             Widgets.column(it, "E-mail", "email")
             Widgets.column(it, "Es administrador", "esAdmin")
-            Widgets.column(it, "Balance", "balance")
+            Widgets.column(it, "Balance", "balance").alignRight()
         }
 
     private fun createOperationButtonsPanel(owner: Panel) =
         Panel(owner) with {
             Widgets.largeButton(it, "Dar de alta nuevo usuario") { openRegisterNewUserWindow() }
-            Widgets.largeButton(it, "Ver") { }
-            Widgets.largeButton(it, "Modificar") { openModifySelectedUserWindow() }
-            Widgets.largeWarningButton(it, "Eliminar") { openRemoveSelectedUserWindow() }
+            Widgets.largeButton(it, "Ver informacion de cuenta") { openViewAccountInfo() }
+            Widgets.largeButton(it, "Modificar usuario")         { openModifySelectedUserWindow() }
+            Widgets.largeWarningButton(it, "Eliminar usuario")   { openRemoveSelectedUserWindow() }
         }
 
     private fun openRegisterNewUserWindow() {
         val dialog = RegisterNewUserWindow(this, RegisterNewUserModel(modelObject.wallet))
-        dialog.onAccept {
-            modelObject.reloadAllUsers()
-            modelObject.resetSearchText()
-        }
+        dialog.onAccept { modelObject.refreshView() }
         dialog.open()
+    }
+
+    private fun openViewAccountInfo() {
+        AccountInfoWindow(this, AccountInfoModel(modelObject.selectedUserModel.user)).open()
     }
 
     private fun openModifySelectedUserWindow() {
         val dialog = ModifyUserWindow(this, ModifyUserModel(modelObject.selectedUserModel.user, modelObject.wallet))
-        dialog.onAccept { modelObject.reloadAllUsers() }
+        dialog.onAccept { modelObject.refreshView() }
         dialog.open()
     }
 
     private fun openRemoveSelectedUserWindow() {
         val model  = RemoveUserModel(modelObject.selectedUserModel.user, modelObject.loggedUser, modelObject.wallet)
         val dialog = RemoveUserWindow(this, model)
-        dialog.onAccept { modelObject.reloadAllUsers() }
+        dialog.onAccept { modelObject.refreshView() }
         dialog.open()
-    }
-
-    private fun createLoggedUserPanel(owner: Panel) {
-        Panel(owner) with {
-            asHorizontal()
-            createLoggedUserInfo(it)
-            createLogoutButton(it)
-        }
-    }
-
-    private fun createLoggedUserInfo(owner: Panel) {
-        Widgets.infoLabel(owner, "Loggeado como:")
-        Widgets.infoBindedLabel(owner, "loggedUserFullName")
-    }
-
-    private fun createLogoutButton(owner: Panel) =
-        Widgets.buttonDefaultColor(owner, "Cerrar sesion") { logout() }
-
-    private fun logout() {
-        close()
-        LogInWindow(this, LoginModel(modelObject.wallet)).open()
     }
 
 }

@@ -2,6 +2,7 @@ package asdasdasdasd
 
 import org.uqbar.commons.model.Entity
 import org.uqbar.commons.model.annotations.Observable
+import wallet.Account
 import wallet.User
 
 @Observable
@@ -18,6 +19,8 @@ class UserModel(val user: User) : Entity() {
     var fullName = user.fullName()
 
     var balance   = user.account?.balance
+
+    val account = user.account
 
 
     override fun toString() = fullName

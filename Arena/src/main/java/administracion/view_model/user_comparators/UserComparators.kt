@@ -5,7 +5,8 @@ object UserComparators {
     val all = listOf(
         ByFirstNameComparator(),
         ByLastNameComparator(),
-        ByEmailComparator()
+        ByEmailComparator(),
+        ByAccountBalanceComparator()
     )
 
 }
