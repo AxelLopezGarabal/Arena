@@ -4,6 +4,8 @@ import com.unqui_arena.Widgets
 import com.unqui_arena.administracion.view.AdministracionWindow
 import com.unqui_arena.administracion.view_model.AdministracionModel
 import login.view_model.LoginModel
+import main_window.model.MainDigitalWalletModel
+import main_window.view.MainDigitalWalletWindow
 import org.uqbar.arena.kotlin.extensions.asColumns
 import org.uqbar.arena.kotlin.extensions.bindImageTo
 import org.uqbar.arena.kotlin.extensions.with
@@ -58,10 +60,9 @@ class LogInWindow : Window<LoginModel> {
 
 	private fun openAdministracionWindow() {
 		close()
-
-		AdministracionWindow(
+		MainDigitalWalletWindow(
 			this,
-			AdministracionModel(modelObject.wallet, modelObject.loggedUser())
+			MainDigitalWalletModel(modelObject.loggedUser(), modelObject.wallet)
 		).open()
 	}
 }
