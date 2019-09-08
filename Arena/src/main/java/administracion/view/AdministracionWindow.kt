@@ -9,6 +9,8 @@ import com.unqui_arena.Widgets
 import com.unqui_arena.administracion.view_model.AdministracionModel
 import login.view.LogInWindow
 import login.view_model.LoginModel
+import main_window.model.MainDigitalWalletModel
+import main_window.view.MainDigitalWalletWindow
 import new_user.view.RegisterNewUserWindow
 import new_user.view_model.RegisterNewUserModel
 import org.uqbar.arena.kotlin.extensions.*
@@ -28,7 +30,7 @@ class AdministracionWindow : DigitalWalletWindow<AdministracionModel> {
 
     override fun createHeader(owner: Panel) { createSearchPanel(owner) }
     override fun createBody(owner: Panel)   { createAdministracionPanel(owner) }
-    override fun createFooter(owner: Panel) { createLoggedUserPanel(owner) }
+    override fun createFooter(owner: Panel) { createBackToMain(owner) }
 
     private fun createSearchPanel(owner: Panel) =
         Panel(owner) with {
@@ -42,13 +44,8 @@ class AdministracionWindow : DigitalWalletWindow<AdministracionModel> {
             createOperationButtonsPanel(it)
         }
 
-    private fun createLoggedUserPanel(owner: Panel) =
-        LoggedUserFooter(owner, modelObject.loggedUser) { logout() }
-
-    private fun logout() {
-        close()
-        LogInWindow(this, LoginModel(modelObject.wallet)).open()
-    }
+    private fun createBackToMain(owner: Panel) =
+        Widgets.buttonDefaultColor(owner, "Volver a la pantalla principal") { openMainWindow() }
 
     //
     private fun createUsersTable(owner: Panel) =
@@ -92,6 +89,12 @@ class AdministracionWindow : DigitalWalletWindow<AdministracionModel> {
         val dialog = RemoveUserWindow(this, model)
         dialog.onAccept { modelObject.refreshView() }
         dialog.open()
+    }
+
+    private fun openMainWindow() {
+        close()
+        val model = MainDigitalWalletModel(modelObject.loggedUser, modelObject.wallet)
+        MainDigitalWalletWindow(this, model).open()
     }
 
 }
