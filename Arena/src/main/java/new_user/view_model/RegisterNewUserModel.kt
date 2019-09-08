@@ -17,4 +17,8 @@ class RegisterNewUserModel(val wallet: DigitalWallet) {
 
     val user get() = User(idCard, firstName, lastName, email, password, esAdmin)
 
+    fun registerNewUser() {
+        wallet.register(user)
+    }
+
 }

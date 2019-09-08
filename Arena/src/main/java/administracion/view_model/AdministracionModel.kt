@@ -5,8 +5,6 @@ import administracion.view_model.user_comparators.ByEmailComparator
 import administracion.view_model.user_comparators.ByFirstNameComparator
 import administracion.view_model.user_comparators.ByLastNameComparator
 import administracion.view_model.filtros_de_usuarios.FiltroCompleto
-import login.view.LogInWindow
-import org.uqbar.arena.windows.Window
 import org.uqbar.commons.model.annotations.Dependencies
 import org.uqbar.commons.model.annotations.Observable
 import wallet.DigitalWallet
@@ -19,14 +17,14 @@ class AdministracionModel(var wallet: DigitalWallet, val loggedUser: User) {
 
     var textoCampoDeBusqueda = ""
 
-    val userComparator = listOf(ByFirstNameComparator(), ByLastNameComparator(), ByEmailComparator())
+    val userComparator         = listOf(ByFirstNameComparator(), ByLastNameComparator(), ByEmailComparator())
     var selectedUserComparator = userComparator.first()
 
-    var allUsers = initAllUsers()
-    var selectedUser = getShowedUsers().first()
+    var allUsersModel     = initAllUsers()
+    var selectedUserModel = getSeachedResultUserModels().first()
 
-    @Dependencies("textoCampoDeBusqueda", "selectedUserComparator", "allUsers")
-    fun getShowedUsers() = initAllUsers()
+    @Dependencies("textoCampoDeBusqueda", "selectedUserComparator", "allUsersModel")
+    fun getSeachedResultUserModels() = initAllUsers()
 
     fun initAllUsers() =
         wallet.users
@@ -34,17 +32,7 @@ class AdministracionModel(var wallet: DigitalWallet, val loggedUser: User) {
             .filter { FiltroCompleto(textoCampoDeBusqueda).test(it) }
             .map { UserModel(it) }
 
-    fun deleteSelectedUser() {
-        wallet.deleteUser(selectedUser.model)
-        allUsers = initAllUsers()
-    }
-
-    fun register(newUser: User) {
-        wallet.register(newUser)
-        allUsers = initAllUsers()
-    }
-
     fun reloadAllUsers() {
-        allUsers = initAllUsers()
+        allUsersModel = initAllUsers()
     }
 }

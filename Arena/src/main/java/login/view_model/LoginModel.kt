@@ -9,8 +9,8 @@ import wallet.User
 @Observable
 class LoginModel(val wallet: DigitalWallet) {
 
-    var email    = ""
-    var password = ""
+    var email    = wallet.getAllAdmins().first().email
+    var password = wallet.getAllAdmins().first().password
 
     var errorMessage: String? = ""
 

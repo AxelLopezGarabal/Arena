@@ -6,9 +6,11 @@ import org.uqbar.arena.kotlin.extensions.*
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.WindowOwner
+import remove_user.view_model.RemoveUserModel
+import wallet.DigitalWallet
 
-class RemoveUserWindow : Dialog<UserModel> {
-    constructor(owner: WindowOwner, model: UserModel) : super(owner, model)
+class RemoveUserWindow : Dialog<RemoveUserModel> {
+    constructor(owner: WindowOwner, model: RemoveUserModel) : super(owner, model)
 
     override fun createFormPanel(owner: Panel) {
         setUpWindow()
@@ -36,8 +38,9 @@ class RemoveUserWindow : Dialog<UserModel> {
     }
 
     private fun createButtons(owner: Panel) {
+        val myModel = modelObject
         owner with {
-            Widgets.button(it, "Si") { accept() }
+            Widgets.button(it, "Si") { myModel.removeUser() ; accept() }
             Widgets.button(it, "No") { cancel() } with { setAsDefault() }
         }
     }

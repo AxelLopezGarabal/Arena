@@ -82,10 +82,15 @@ class RegisterNewUserWindow : Dialog<RegisterNewUserModel> {
 		}
 	
 	private fun acceptBotton(owner: Panel) =
-		Widgets.button(owner, "Aceptar") { accept() }
+		Widgets.button(owner, "Aceptar") { registerNewUser() }
 	
 	private fun cancelBotton(owner: Panel) =
 		Widgets.button(owner, "Cancelar") { cancel() }
 
-	fun createdUser() = modelObject.user
+	//fun createdUser() = modelObject.userModel
+
+	fun registerNewUser() {
+		modelObject.registerNewUser()
+		accept()
+	}
 }
