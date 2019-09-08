@@ -22,7 +22,7 @@ class AdministracionModel(var wallet: DigitalWallet, val loggedUser: User) {
     var allUserModels     = getSeachedResultUserModels()
     var selectedUserModel = getSeachedResultUserModels().first()
 
-    val loggedUserFullName = loggedUser.fullName() // usar adapter en lugar de esto
+    val loggedUserFullName = loggedUser.fullName() // Deberia usar un adapter pero no funciona
 
     @Dependencies("textoCampoDeBusqueda", "selectedUserComparator", "allUserModels")
     fun getSeachedResultUserModels() =

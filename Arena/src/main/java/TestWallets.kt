@@ -6,22 +6,34 @@ import wallet.User
 object TestWallets {
 
     fun testWalletA(): DigitalWallet {
-        val pepeAdmin = User("1", "Pepe", "Gomez", "a@a.com", "pass", true)
-        val juan      = User("2", "Juan", "Perez", "aaa@gmail.com", "pass123", false)
-        val alvaro    = User("3", "Alvaro", "Gomez", "ccc@hotmail.com", "pass123", false)
-
-        val juanAccount = Account(juan, "123")
-        juanAccount.balance = 1.0
 
         val wallet = DigitalWallet()
-        wallet.register(pepeAdmin)
-        wallet.register(juan)
-        wallet.register(alvaro)
 
+        prepare("0001", "1", "Pepe", "Gomez", "a@a.com", "pass", true, wallet)
+        prepare("0002","2", "Juan", "Perez", "juanperez@gmail.com", "pass", true, wallet)
+        prepare("0003","3", "Alvaro", "Gomez", "alvaro@hotmail.com", "pass", true, wallet)
+        prepare("0004","4", "Qwerty", "Asdf", "asd@gmail.com", "pass", true, wallet)
 
-        wallet.assignAccount(juan, juanAccount)
+        wallet.addGift(DigitalWallet.createGift(wallet.accountByCVU("0002"), 200.0))
+        wallet.transfer("0002", "0004", 80.0)
 
         return wallet
+    }
+
+    fun prepare(
+        cvu: String,
+        idCard: String,
+        firstName: String,
+        lastName: String,
+        email: String,
+        password: String,
+        isAdmin: Boolean,
+        wallet: DigitalWallet)
+    {
+        val user = User(idCard, firstName, lastName, email, password, isAdmin)
+        wallet.register(user)
+        wallet.assignAccount(user, Account(user, cvu))
+
     }
 
 }

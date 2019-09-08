@@ -17,7 +17,10 @@ import remove_user.view.RemoveUserWindow
 import modify_user.view.ModifyUserWindow
 import modify_user.view_model.ModifyUserModel
 import org.uqbar.arena.bindings.ObservableProperty
+import org.uqbar.arena.bindings.PropertyAdapter
+import org.uqbar.arena.widgets.Label
 import remove_user.view_model.RemoveUserModel
+import wallet.User
 
 class AdministracionWindow : SimpleWindow<AdministracionModel> {
     override fun addActions(p0: Panel?) {}
@@ -86,7 +89,6 @@ class AdministracionWindow : SimpleWindow<AdministracionModel> {
 
     private fun createOperationButtonsPanel(owner: Panel) =
         Panel(owner) with {
-            asVertical()
             Widgets.largeButton(it, "Dar de alta nuevo usuario") { openRegisterNewUserWindow() }
             Widgets.largeButton(it, "Ver") { }
             Widgets.largeButton(it, "Modificar") { openModifySelectedUserWindow() }
