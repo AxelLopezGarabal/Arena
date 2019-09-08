@@ -80,6 +80,7 @@ class AdministracionWindow : SimpleWindow<AdministracionModel> {
             Widgets.column(it, "Apellido", "lastName")
             Widgets.column(it, "E-mail", "email")
             Widgets.column(it, "Es administrador", "esAdmin")
+            Widgets.column(it, "Balance", "balance")
         }
 
     private fun createOperationButtonsPanel(owner: Panel) =

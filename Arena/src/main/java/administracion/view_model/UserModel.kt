@@ -14,6 +14,8 @@ class UserModel(val user: User) {
 
     var isAdmin   = user.isAdmin
 
+    var balance   = user.account?.balance
+
     var fullName = user.fullName()
 
     override fun toString() = fullName
