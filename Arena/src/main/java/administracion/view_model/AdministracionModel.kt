@@ -20,7 +20,7 @@ class AdministracionModel(var wallet: DigitalWallet, val loggedUser: User) {
     var selectedUserComparator = userComparators.first()
 
     var allUserModels     = getSeachedResultUserModels()
-    var selectedUserModel = getSeachedResultUserModels().first()
+    var selectedUserModel = allUserModels.first()
 
     val loggedUserFullName = loggedUser.fullName() // Deberia usar un adapter pero no funciona
 
@@ -29,7 +29,7 @@ class AdministracionModel(var wallet: DigitalWallet, val loggedUser: User) {
         BuscadorDeUsuarios(wallet).search(textoCampoDeBusqueda, selectedUserComparator)
 
     fun reloadAllUsers() {
-        allUserModels = getSeachedResultUserModels()//seachAllUserModels()
+        allUserModels = getSeachedResultUserModels()
     }
 
     fun resetSearchText() {

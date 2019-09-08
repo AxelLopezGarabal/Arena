@@ -7,7 +7,6 @@ import wallet.*
 
 @Observable
 class RegisterNewUserModel(val wallet: DigitalWallet) {
-    var errorMessage  = ""
 
     var idCard        = ""
     var firstName     = ""
@@ -27,22 +26,7 @@ class RegisterNewUserModel(val wallet: DigitalWallet) {
     }
 
     private fun makeUser() = User(idCard, firstName, lastName, email, password, esAdmin)
-
     private fun makeAccountFor(user: User) = Account(user, DigitalWallet.generateNewCVU())
-
-    @Dependencies("email")
-    fun getCheckInvalidMail() =
-        email != "" && !email.matches("^[a-z_]+[a-z0-1_]*@[a-z_][a-z0-1_]*([.][a-z]+)+$$".toRegex(RegexOption.IGNORE_CASE))
-
-    @Dependencies("password", "passwordAgain")
-    fun getCheckDifferentPasswords() = password != passwordAgain
-
-    @Dependencies("email")
-    fun getCheckRepeatedMail() = wallet.users.any { it.email == email }
-
-    @Dependencies("idCard", "firstName", "lastName", "email", "password", "passwordAgain")
-    fun getCheckEmptyRequieredFields() =
-        listOf(idCard, firstName, lastName, email, password, passwordAgain).any { it.isEmpty() }
 
     private fun validateInput() {
         assertValidEmail()
@@ -64,5 +48,19 @@ class RegisterNewUserModel(val wallet: DigitalWallet) {
         if (getCheckEmptyRequieredFields())
             throw UserException("Quedaron campos sin llenar")
     }
+
+    @Dependencies("email")
+    fun getCheckInvalidMail() =
+        email != "" && !email.matches("^[a-z_]+[a-z0-1_]*@[a-z_][a-z0-1_]*([.][a-z]+)+$$".toRegex(RegexOption.IGNORE_CASE))
+
+    @Dependencies("password", "passwordAgain")
+    fun getCheckDifferentPasswords() = password != passwordAgain
+
+    @Dependencies("email")
+    fun getCheckRepeatedMail() = wallet.users.any { it.email == email }
+
+    @Dependencies("idCard", "firstName", "lastName", "email", "password", "passwordAgain")
+    fun getCheckEmptyRequieredFields() =
+        listOf(idCard, firstName, lastName, email, password, passwordAgain).any { it.isEmpty() }
 
 }

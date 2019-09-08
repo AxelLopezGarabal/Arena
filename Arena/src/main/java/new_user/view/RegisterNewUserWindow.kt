@@ -7,7 +7,6 @@ import org.uqbar.arena.widgets.*
 import org.uqbar.arena.windows.WindowOwner
 import new_user.view_model.RegisterNewUserModel
 import org.uqbar.arena.windows.Dialog
-import org.uqbar.lacar.ui.model.ControlBuilder
 
 class RegisterNewUserWindow : Dialog<RegisterNewUserModel> {
 

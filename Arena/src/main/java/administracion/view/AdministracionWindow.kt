@@ -41,7 +41,7 @@ class AdministracionWindow : SimpleWindow<AdministracionModel> {
     }
 
     private fun createTitle(owner: Panel) =
-            Widgets.titleLabel(owner, "Usuarios registrados")
+            Widgets.titleLabel(owner, "Administracion de usuarios")
 
     private fun createAdministracionPanel(owner: Panel) {
         createSearchPanel(owner)
@@ -111,7 +111,8 @@ class AdministracionWindow : SimpleWindow<AdministracionModel> {
     }
 
     private fun openRemoveSelectedUserWindow() {
-        val dialog = RemoveUserWindow(this, RemoveUserModel(modelObject.selectedUserModel, modelObject.wallet))
+        val model  = RemoveUserModel(modelObject.selectedUserModel.user, modelObject.loggedUser, modelObject.wallet)
+        val dialog = RemoveUserWindow(this, model)
         dialog.onAccept { modelObject.reloadAllUsers() }
         dialog.open()
     }

@@ -15,9 +15,10 @@ class UserModel(val user: User) : Entity() {
 
     var isAdmin   = user.isAdmin
 
+    var fullName = user.fullName()
+
     var balance   = user.account?.balance
 
-    var fullName = user.fullName()
 
     override fun toString() = fullName
 }
