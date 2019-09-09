@@ -3,7 +3,6 @@ package login.view
 import com.unqui_arena.Widgets
 import com.unqui_arena.administracion.view.AdministracionWindow
 import com.unqui_arena.administracion.view_model.AdministracionModel
-import login.view_model.LoginModel
 import main_window.model.MainDigitalWalletModel
 import main_window.view.MainDigitalWalletWindow
 import org.uqbar.arena.kotlin.extensions.asColumns
@@ -13,15 +12,15 @@ import org.uqbar.arena.widgets.*
 import org.uqbar.arena.windows.Window
 import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.arena.windows.SimpleWindow
+import login.view_model.LoginModel
 
 class LogInWindow : SimpleWindow<LoginModel> {
     constructor(owner: WindowOwner, model: LoginModel) : super(owner, model)
-	
     override fun createFormPanel(mainPanel: Panel){}
 	
 	override fun addActions(mainPanel: Panel){
 		Widgets.button(mainPanel, "LOG IN") {
-			model.validate() ;
+			modelObject.validate() ;
 			openMainWindow() ;
 		}
 	}

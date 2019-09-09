@@ -3,7 +3,6 @@ package com.unqui_arena.administracion.view
 import account_info.model.AccountInfoModel
 import account_info.view.AccountInfoWindow
 import administracion.view.SearchPanel
-import asdasdasdasd.DigitalWalletWindow
 import asdasdasdasd.UserModel
 import com.unqui_arena.Widgets
 import com.unqui_arena.administracion.view_model.AdministracionModel
@@ -21,6 +20,7 @@ import remove_user.view.RemoveUserWindow
 import modify_user.view.ModifyUserWindow
 import modify_user.view_model.ModifyUserModel
 import remove_user.view_model.RemoveUserModel
+import asdasdasdasd.DigitalWalletWindow
 
 class AdministracionWindow : DigitalWalletWindow<AdministracionModel> {
 

@@ -23,24 +23,23 @@ class LoginModel(val wallet: DigitalWallet) {
 			validEmailField();
 			validPasswordField();
 		}
-		catch(e:UserException){
-			throw UserException(e.message)
+		catch(eV:UserException){
+			throw UserException(eV.message)
+		}
+		catch(eM:LoginException){
+			throw UserException(eM.message)
 		}
 	}
 	
 	fun validEmailField(){
-		if(validateEmail()){
+		if(wallet.getAllAdmins().any { User -> User.email != email}){
 			throw UserException("el email $email o la password es/son invalidas")
 		}
 	}
 	
 	fun validPasswordField(){
-		if(validatePassword()){
+		if(wallet.getAllAdmins().filter { User -> User.email == email }.first().password != password){
 			throw UserException("el email $email o la password es/son invalidas")
 		}
 	}
-	
-	fun validatePassword() = wallet.getAllAdmins().filter { User -> User.email == email }.first().password == password;
-	
-	fun validateEmail() = wallet.getAllAdmins().any { User -> User.email != email};
 }
