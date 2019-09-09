@@ -70,7 +70,7 @@ object Widgets {
         TextBox(owner) with { bindTo(propertyName); width = defaultTextInputWidth }
 
     fun numericField(owner: Panel, propertyName: String) =
-        NumericField(owner) with { bindTo(propertyName) }
+        NumericField(owner) with { bindTo(propertyName); width = defaultTextInputWidth }
 
     fun passwordField(owner: Panel, propertyName: String) =
         PasswordField(owner) with { bindTo(propertyName); width = defaultTextInputWidth }

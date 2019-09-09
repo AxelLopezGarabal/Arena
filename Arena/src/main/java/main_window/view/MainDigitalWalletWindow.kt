@@ -10,6 +10,8 @@ import login.view_model.LoginModel
 import main_window.model.MainDigitalWalletModel
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.windows.WindowOwner
+import transfer_money.model.TransferMoneyModel
+import transfer_money.view.TransferMoneyWindow
 
 class MainDigitalWalletWindow : DigitalWalletWindow<MainDigitalWalletModel> {
 
@@ -33,7 +35,9 @@ class MainDigitalWalletWindow : DigitalWalletWindow<MainDigitalWalletModel> {
     }
 
     private fun openTransferMoney() {
-
+        //close()
+        val model = TransferMoneyModel(modelObject.loggedUser, modelObject.wallet)
+        TransferMoneyWindow(this, model).open()
     }
 
     private fun openAdministrarUsuarios() {
