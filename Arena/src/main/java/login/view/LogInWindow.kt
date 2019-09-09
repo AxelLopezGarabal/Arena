@@ -12,18 +12,29 @@ import org.uqbar.arena.kotlin.extensions.with
 import org.uqbar.arena.widgets.*
 import org.uqbar.arena.windows.Window
 import org.uqbar.arena.windows.WindowOwner
+import org.uqbar.arena.windows.SimpleWindow
 
-class LogInWindow : Window<LoginModel> {
+class LogInWindow : SimpleWindow<LoginModel> {
     constructor(owner: WindowOwner, model: LoginModel) : super(owner, model)
-
+	
+    override fun createFormPanel(mainPanel: Panel){}
+	
+	override fun addActions(mainPanel: Panel){
+		Widgets.button(mainPanel, "LOG IN") {
+			model.validate() ;
+			openMainWindow() ;
+		}
+	}
+	
     override fun createContents(mainPanel: Panel) {
-		setUpWindow(mainPanel)
-		welcomeMessage(mainPanel)
-        createInputPanel(mainPanel)
-        createButtonsPanel(mainPanel)
+		setUpWindow();
+		welcomeMessage(mainPanel);
+        createInputPanel(mainPanel);
+		addActions(mainPanel);
+    //    createButtonsPanel(mainPanel)
     }
 
-	private fun setUpWindow(owner: Panel) {
+	private fun setUpWindow() {
         setTitle("Digital Wallet - UI")
     }
 	
@@ -49,7 +60,7 @@ class LogInWindow : Window<LoginModel> {
 		Widgets.mediumLabel(owner, "Password:")
 		Widgets.mediumPasswordField(owner, "password")
 	}
-	
+/*	
     private fun createButtonsPanel(owner: Panel) {
         Panel(owner) with {
 			Widgets.largeButtonDefaultColor(owner, "Login") { openAdministracionWindow() } with {
@@ -57,8 +68,8 @@ class LogInWindow : Window<LoginModel> {
 			}
 		}
     }
-
-	private fun openAdministracionWindow() {
+*/
+	private fun openMainWindow() {
 		close()
 		MainDigitalWalletWindow(
 			this,
